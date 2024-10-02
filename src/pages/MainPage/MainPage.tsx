@@ -3,11 +3,10 @@ import { IPlace } from '../..';
 import PlaceCard from '../../components/CityCard/PlaceCard';
 
 interface MainPageProps {
-  placesCount: number;
   places: IPlace[];
 }
 
-function MainPage({ places, placesCount }: MainPageProps):JSX.Element {
+function MainPage({ places }: MainPageProps):JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -18,7 +17,7 @@ function MainPage({ places, placesCount }: MainPageProps):JSX.Element {
                 <img
                   className="header__logo"
                   src="img/logo.svg"
-                  alt={`${placesCount} cities logo`}
+                  alt={`${places.length} cities logo`}
                   width={81}
                   height={41}
                 />
@@ -90,7 +89,7 @@ function MainPage({ places, placesCount }: MainPageProps):JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{places.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>

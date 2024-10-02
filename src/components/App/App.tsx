@@ -8,7 +8,7 @@ interface AppProps {
 
 function App({ places }: AppProps):JSX.Element {
   return (
-    <MainPage placesCount={places.length} places={places} />
+    <MainPage places={places} />
   );
 }
 
