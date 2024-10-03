@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 
-function LoginPage(): JSX.Element {
+export function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -63,5 +63,3 @@ function LoginPage(): JSX.Element {
 
   );
 }
-
-export default LoginPage;
