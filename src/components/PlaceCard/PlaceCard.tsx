@@ -1,11 +1,11 @@
 import { JSX } from 'react';
 import { IPlace } from '../..';
 
-export interface PlaceCardProps {
+interface PlaceCardProps {
   place: IPlace;
 }
 
-function PlaceCard({ place }: PlaceCardProps):JSX.Element {
+export function PlaceCard({ place }: PlaceCardProps):JSX.Element {
   const { premium, imgSrc, price, rate, activeBookmark, name, type } = place;
   return (
     <article className="cities__card place-card">
@@ -48,7 +48,7 @@ function PlaceCard({ place }: PlaceCardProps):JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rate}%` }} />
+            <span style={{ width: `${20 * rate}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

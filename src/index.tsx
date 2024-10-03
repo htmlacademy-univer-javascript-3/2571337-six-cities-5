@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App/App';
+import { App } from './components/App';
 
 enum TypePlace {
   ROOM = 'Room',
@@ -12,7 +12,7 @@ export interface IPlace {
   name: string;
   type: TypePlace;
   price: number;
-  rate: number;
+  rate: 1 | 2 | 3 | 4 | 5;
   imgSrc?: string;
   activeBookmark?: boolean;
   premium?: boolean;
@@ -25,7 +25,7 @@ const places: IPlace[] = [
     type: TypePlace.APARTMENT,
     imgSrc: 'img/apartment-01.jpg',
     price: 120,
-    rate: 80,
+    rate: 4,
     premium: true
   },
   {
@@ -34,7 +34,7 @@ const places: IPlace[] = [
     type: TypePlace.ROOM,
     imgSrc: 'img/room.jpg',
     price: 80,
-    rate: 80,
+    rate: 4,
     activeBookmark: true
   },
   {
@@ -43,7 +43,7 @@ const places: IPlace[] = [
     type: TypePlace.APARTMENT,
     imgSrc: 'img/apartment-02.jpg',
     price: 132,
-    rate: 80
+    rate: 4
   },
   {
     id: 4,
@@ -51,7 +51,7 @@ const places: IPlace[] = [
     type: TypePlace.APARTMENT,
     imgSrc: 'img/apartment-03.jpg',
     price: 180,
-    rate: 100,
+    rate: 5,
     premium: true
   },
   {
@@ -60,7 +60,7 @@ const places: IPlace[] = [
     type: TypePlace.ROOM,
     imgSrc: 'img/room.jpg',
     price: 80,
-    rate: 80,
+    rate: 4,
     activeBookmark: true
   },
 ];
