@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import { JSX } from 'react';
 import { Link } from 'react-router-dom';
 
 import classes from './NotFoundPage.module.css';
