@@ -3,6 +3,6 @@ import { Navigate } from 'react-router-dom';
 import { AppRoute } from '../../constants/routes';
 
 export function PrivateRoute({ children }: PropsWithChildren){
-  const isAuth = false;
+  const isAuth = true;
   return isAuth ? children : <Navigate to={AppRoute.LOGIN}/>;
 }
