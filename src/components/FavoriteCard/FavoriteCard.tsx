@@ -1,5 +1,5 @@
-import { CommonOffer } from '../../types/offers';
-import { FavoriteCardOffer } from './components/FavoriteCardOffer/FavoriteCardOffer';
+import { CommonOffer } from '../../types/offer';
+import { OfferCard } from '../OfferCard';
 
 type FavoriteCardProps = {
     cityName: string;
@@ -15,7 +15,7 @@ export const FavoriteCard = ({ cityName, offersInCity }: FavoriteCardProps) => (
       </div>
     </div>
     <div className="favorites__places">
-      { offersInCity.map((offer) => <FavoriteCardOffer offer={offer} key={offer.id}/>) }
+      { offersInCity.map((offer) => <OfferCard offer={offer} key={offer.id} block='favorites' imageSize='small'/>) }
     </div>
   </li>
 );

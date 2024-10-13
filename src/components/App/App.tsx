@@ -7,7 +7,7 @@ import { OfferPage } from '../../pages/OfferPage';
 import { NotFoundPage } from '../../pages/NotFoundPage';
 import { PrivateRoute } from '../PrivateRoute/PrivateRoute';
 import { AppRoute } from '../../constants/routes';
-import { CommonOffer } from '../../types/offers';
+import { CommonOffer } from '../../types/offer';
 
 interface AppProps {
     offers: CommonOffer[];
@@ -20,7 +20,7 @@ export function App({ offers }: AppProps):JSX.Element {
         <Route path={AppRoute.MAIN} element={<MainPage offers={offers}/>}/>
         <Route path={AppRoute.LOGIN} element={<LoginPage/>}/>
         <Route path={AppRoute.FAVORITES} element={<PrivateRoute><FavoritesPage offers={offers}/></PrivateRoute>}/>
-        <Route path={AppRoute.OFFER} element={<OfferPage/>}/>
+        <Route path={AppRoute.OFFER} element={<OfferPage offers={offers}/>}/>
         <Route path={AppRoute.NOT_FOUND} element={<NotFoundPage />}/>
         <Route path='*' element={<Navigate to={AppRoute.NOT_FOUND}/>}/>
       </Routes>

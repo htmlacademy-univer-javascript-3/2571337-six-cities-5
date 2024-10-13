@@ -1,9 +1,23 @@
 import { JSX } from 'react';
 import { Header } from '../../components/Header';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { ReviewsForm } from '../../components/ReviewsForm';
+import { CommonOffer } from '../../types/offer';
+import { capitalize } from '../../utils/capitalize';
+import { AppRoute } from '../../constants/routes';
 
-export function OfferPage():JSX.Element {
+
+type OfferPageProps = {
+  offers: CommonOffer[];
+}
+export function OfferPage({ offers }: OfferPageProps):JSX.Element {
+  const {offerId} = useParams();
+  const offer = offers.find((o) => o.id === offerId);
+
+  if (!offer) {
+    return <Navigate to={AppRoute.MAIN}/>;
+  }
+
   return (
     <div className="page">
       <Header/>
@@ -314,7 +328,7 @@ export function OfferPage():JSX.Element {
                   <h2 className="place-card__name">
                     <Link to="#">Nice, cozy, warm big bed apartment</Link>
                   </h2>
-                  <p className="place-card__type">Apartment</p>
+                  <p className="place-card__type">{capitalize(offer.type)}</p>
                 </div>
               </article>
             </div>

@@ -1,4 +1,4 @@
-import { CommonOffer, PlaceType } from '../types/offers';
+import { CommonOffer, PlaceType } from '../types/offer';
 
 export const offers: CommonOffer[] = [
   {

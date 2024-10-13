@@ -1,22 +1,27 @@
 import { ChangeEvent, Fragment, useState } from 'react';
+import { COMMENT_MAX_LENGTH, COMMENT_MIN_LENGTH } from '../../constants/review-form';
 
-const rates = new Array(5).fill('').map((_, index) => index + 1).reverse();
+const ratesTitleMap = {
+  perfect: 5,
+  good: 4,
+  'not bad': 3,
+  badly: 2,
+  terribly: 1
+};
 
 export const ReviewsForm = () => {
-  const [review, setReview] = useState({
-    comment: '',
-    rating: 0
-  });
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState(0);
 
-  const changeFormValues = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setReview((prev) => ({
-      ...prev,
-      [name]: typeof prev[name as keyof typeof prev] === 'number' ? Number(value) : value
-    }));
+  const onChangeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value);
   };
 
-  const isValid = review.comment.length >= 50 && review.comment.length <= 300 && review.rating > 0;
+  const onChangeRating = (e: ChangeEvent<HTMLInputElement>) => {
+    setRating(Number(e.target.value));
+  };
+
+  const isValid = comment.length >= COMMENT_MIN_LENGTH && comment.length <= COMMENT_MAX_LENGTH && rating > 0;
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -24,20 +29,21 @@ export const ReviewsForm = () => {
     Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        { rates.map((rate) => (
+        { Object.entries(ratesTitleMap).map(([title, rate]) => (
           <Fragment key={rate}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              onChange={changeFormValues}
+              onChange={onChangeRating}
               value={rate}
+              checked={rating === rate}
               id={`${rate}-stars`}
               type="radio"
             />
             <label
               htmlFor={`${rate}-stars`}
               className="reviews__rating-label form__rating-label"
-              title="perfect"
+              title={title}
             >
               <svg className="form__star-image" width={37} height={33}>
                 <use xlinkHref="#icon-star" />
@@ -50,15 +56,15 @@ export const ReviewsForm = () => {
         className="reviews__textarea form__textarea"
         id="review"
         name="comment"
-        onChange={changeFormValues}
+        onChange={onChangeComment}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={review.comment}
+        value={comment}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
       To submit review please make sure to set
           <span className="reviews__star">rating</span> and describe your stay with
-      at least <b className="reviews__text-amount">50 characters</b>.
+      at least <b className="reviews__text-amount">{COMMENT_MIN_LENGTH} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

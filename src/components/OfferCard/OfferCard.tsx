@@ -1,20 +1,44 @@
 import { JSX } from 'react';
-import { CommonOffer } from '../../types/offers';
+import { CommonOffer } from '../../types/offer';
 import { Link } from 'react-router-dom';
+import { capitalize } from '../../utils/capitalize';
+
+type TImageSize = 'small' | 'large';
+const imageSizeMap: Record<TImageSize, { width: number; height: number }> = {
+  large: {
+    height: 200,
+    width: 260
+  },
+  small: {
+    width: 150,
+    height: 110
+  }
+};
 
 interface OfferCardProps {
   offer: CommonOffer;
-  onMouseEnterHandler: (id: CommonOffer['id'] | null) => void;
+  imageSize: TImageSize;
+  block: string;
+  hoveredOffer?: (id: CommonOffer['id'] | null) => void;
 }
 
-export function OfferCard({ offer, onMouseEnterHandler }: OfferCardProps):JSX.Element {
+export function OfferCard({ offer, hoveredOffer, imageSize, block }: OfferCardProps):JSX.Element {
   const { isPremium, previewImage, price, rating, isFavorite, title, type, id } = offer;
+
+  const onMouseEnterHandler = () => {
+    hoveredOffer?.(id);
+  };
+
+  const onMouseLeaveHandler = () => {
+    hoveredOffer?.(null);
+  };
+
 
   return (
     <article
-      className="cities__card place-card"
-      onMouseEnter={() => onMouseEnterHandler(offer.id)}
-      onMouseLeave={() => onMouseEnterHandler(null)}
+      className={`${block}__card place-card`}
+      onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
     >
       {
         isPremium &&
@@ -22,18 +46,17 @@ export function OfferCard({ offer, onMouseEnterHandler }: OfferCardProps):JSX.El
           <span>Premium</span>
         </div>
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
             src={previewImage}
-            width={260}
-            height={200}
+            {...imageSizeMap[imageSize]}
             alt="Place image"
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${block}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
@@ -64,7 +87,7 @@ export function OfferCard({ offer, onMouseEnterHandler }: OfferCardProps):JSX.El
             {title}
           </Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalize(type)}</p>
       </div>
     </article>
   );

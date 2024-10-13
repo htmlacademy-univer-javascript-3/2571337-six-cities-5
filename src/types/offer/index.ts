@@ -1,3 +1,7 @@
+import { TCity } from '../city';
+import { TLocation } from '../location';
+import { TUser } from '../user';
+
 export enum PlaceType {
     APARTMENT = 'apartment',
     ROOM = 'room',
@@ -12,19 +16,8 @@ export type CommonOffer = {
     title: string;
     type: PlaceType;
     price: number;
-    city: {
-        name: string;
-        location: {
-            latitude: number;
-            longitude: number;
-            zoom: number;
-        };
-    };
-    location: {
-        latitude: number;
-        longitude: number;
-        zoom: number;
-    };
+    city: TCity;
+    location: TLocation;
     isFavorite: boolean;
     isPremium: boolean;
     rating: Rate;
@@ -35,11 +28,7 @@ export type Offer = {
     description: string;
     bedrooms: number;
     goods: string[];
-    host: {
-        name: string;
-        avatarUrl: string;
-        isPro: boolean;
-    };
+    host: TUser;
     images: string[];
     maxAdults: number;
 } & Omit<CommonOffer, 'previewImage'>;
