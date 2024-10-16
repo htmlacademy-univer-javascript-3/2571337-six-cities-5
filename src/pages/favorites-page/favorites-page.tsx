@@ -1,8 +1,8 @@
 import { JSX, useMemo } from 'react';
 import { CommonOffer } from '../../types/offer.types';
 import { FavoriteCard } from '../../components/favorite-card/favorite-card';
-import { Header } from '../../components/headerrrr';
-import { Footer } from '../../components/footerr';
+import { Header } from '../../components/header';
+import { Footer } from '../../components/footer';
 
 type FavoritesPageProps = {
   offers: CommonOffer[];
