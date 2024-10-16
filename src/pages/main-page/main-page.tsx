@@ -1,9 +1,9 @@
 import { JSX } from 'react';
 import { CommonOffer } from '../../types/offer';
-import { OfferList } from '../../components/OfferList';
-import { Header } from '../../components/Header';
+import { OfferList } from '../../components/offer-list';
+import { Header } from '../../components/header';
 import { cities } from '../../mocks/cities';
-import { LocationItem } from '../../components/LocationItem';
+import { LocationItem } from '../../components/location-item';
 
 interface MainPageProps {
   offers: CommonOffer[];

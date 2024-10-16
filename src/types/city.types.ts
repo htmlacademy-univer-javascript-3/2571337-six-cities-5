@@ -1,4 +1,4 @@
-import { TLocation } from '../location';
+import { TLocation } from './location.types';
 
 export type TCity = {
     name: string;

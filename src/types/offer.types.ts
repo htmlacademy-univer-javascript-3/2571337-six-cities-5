@@ -1,6 +1,6 @@
-import { TCity } from '../city';
-import { TLocation } from '../location';
-import { TUser } from '../user';
+import { TCity } from './city.types';
+import { TLocation } from './location.types';
+import { TUser } from './user.types';
 
 export enum PlaceType {
     APARTMENT = 'apartment',

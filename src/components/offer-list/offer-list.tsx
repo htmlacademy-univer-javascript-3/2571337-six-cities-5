@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CommonOffer } from '../../types/offer';
-import { OfferCard } from '../OfferCard';
+import { OfferCard } from '../offer-card';
 
 
 type OfferListProps = {

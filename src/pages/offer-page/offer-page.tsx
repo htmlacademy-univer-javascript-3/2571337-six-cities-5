@@ -1,7 +1,7 @@
 import { JSX } from 'react';
-import { Header } from '../../components/Header';
+import { Header } from '../../components/header';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { ReviewsForm } from '../../components/ReviewsForm';
+import { ReviewsForm } from '../../components/reviews-form';
 import { CommonOffer } from '../../types/offer';
 import { capitalize } from '../../utils/capitalize';
 import { AppRoute } from '../../constants/routes';
