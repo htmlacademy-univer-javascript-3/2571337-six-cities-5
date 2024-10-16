@@ -3,10 +3,10 @@ import { TLocation } from './location.types';
 import { TUser } from './user.types';
 
 export enum PlaceType {
-    APARTMENT = 'apartment',
-    ROOM = 'room',
-    HOUSE = 'house',
-    HOTEL = 'hotel'
+    Apartment = 'apartment',
+    Room = 'room',
+    House = 'house',
+    Hotel = 'hotel'
 }
 
 type Rate = 0 | 1 | 2 | 3 | 4 | 5;

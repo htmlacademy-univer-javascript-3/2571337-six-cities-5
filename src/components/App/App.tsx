@@ -18,19 +18,19 @@ export function App({ offers }: AppProps):JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.MAIN} element={<MainPage offers={offers}/>}/>
-        <Route path={AppRoute.LOGIN} element={<LoginPage/>}/>
+        <Route path={AppRoute.Main} element={<MainPage offers={offers}/>}/>
+        <Route path={AppRoute.Login} element={<LoginPage/>}/>
         <Route
-          path={AppRoute.FAVORITES}
+          path={AppRoute.Favorites}
           element={
             <PrivateRoute authStatus={AuthStatus.Authorized}>
               <FavoritesPage offers={offers}/>
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.OFFER} element={<OfferPage offers={offers}/>}/>
-        <Route path={AppRoute.NOT_FOUND} element={<NotFoundPage />}/>
-        <Route path='*' element={<Navigate to={AppRoute.NOT_FOUND}/>}/>
+        <Route path={AppRoute.Offer} element={<OfferPage offers={offers}/>}/>
+        <Route path={AppRoute.NotFound} element={<NotFoundPage />}/>
+        <Route path='*' element={<Navigate to={AppRoute.NotFound}/>}/>
       </Routes>
     </BrowserRouter>
   );

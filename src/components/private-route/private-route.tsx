@@ -8,5 +8,5 @@ type PrivateRouteProps = {
 } & PropsWithChildren;
 
 export function PrivateRoute({ children, authStatus }: PrivateRouteProps){
-  return authStatus === AuthStatus.Authorized ? children : <Navigate to={AppRoute.LOGIN}/>;
+  return authStatus === AuthStatus.Authorized ? children : <Navigate to={AppRoute.Login}/>;
 }

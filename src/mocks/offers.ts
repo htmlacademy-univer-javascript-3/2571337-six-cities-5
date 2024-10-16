@@ -1,10 +1,10 @@
-import { CommonOffer, PlaceType } from '../types/offer';
+import { CommonOffer, PlaceType } from '../types/offer.types';
 
 export const offers: CommonOffer[] = [
   {
     'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
     'title': 'Beautiful & luxurious studio at great location',
-    'type': PlaceType.APARTMENT,
+    'type': PlaceType.Apartment,
     'price': 120,
     'city': {
       'name': 'Amsterdam',
@@ -27,7 +27,7 @@ export const offers: CommonOffer[] = [
   {
     'id': '2',
     'title': 'Beautiful & luxurious studio at great location',
-    'type': PlaceType.HOUSE,
+    'type': PlaceType.House,
     'price': 333,
     'city': {
       'name': 'Amsterdam',
@@ -50,7 +50,7 @@ export const offers: CommonOffer[] = [
   {
     'id': '3',
     'title': 'Beautiful & luxurious studio at great location',
-    'type': PlaceType.ROOM,
+    'type': PlaceType.Room,
     'price': 999,
     'city': {
       'name': 'Amsterdam',
@@ -73,7 +73,7 @@ export const offers: CommonOffer[] = [
   {
     'id': '4',
     'title': 'Beautiful & luxurious studio at great location',
-    'type': PlaceType.HOUSE,
+    'type': PlaceType.House,
     'price': 123,
     'city': {
       'name': 'Cologone',

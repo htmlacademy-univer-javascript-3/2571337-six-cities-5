@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { Header } from '../../components/header';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { ReviewsForm } from '../../components/reviews-form';
-import { CommonOffer } from '../../types/offer';
+import { CommonOffer } from '../../types/offer.types';
 import { capitalize } from '../../utils/capitalize';
 import { AppRoute } from '../../constants/routes';
 
@@ -15,7 +15,7 @@ export function OfferPage({ offers }: OfferPageProps):JSX.Element {
   const offer = offers.find((o) => o.id === offerId);
 
   if (!offer) {
-    return <Navigate to={AppRoute.MAIN}/>;
+    return <Navigate to={AppRoute.Main}/>;
   }
 
   return (

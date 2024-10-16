@@ -1,5 +1,5 @@
 import { JSX } from 'react';
-import { CommonOffer } from '../../types/offer';
+import { CommonOffer } from '../../types/offer.types';
 import { OfferList } from '../../components/offer-list';
 import { Header } from '../../components/header';
 import { cities } from '../../mocks/cities';

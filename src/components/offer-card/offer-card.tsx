@@ -1,5 +1,5 @@
 import { JSX } from 'react';
-import { CommonOffer } from '../../types/offer';
+import { CommonOffer } from '../../types/offer.types';
 import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/capitalize';
 

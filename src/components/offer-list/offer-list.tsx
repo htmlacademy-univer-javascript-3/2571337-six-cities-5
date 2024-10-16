@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CommonOffer } from '../../types/offer';
+import { CommonOffer } from '../../types/offer.types';
 import { OfferCard } from '../offer-card';
 
 

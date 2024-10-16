@@ -1,5 +1,5 @@
 import { JSX, useMemo } from 'react';
-import { CommonOffer } from '../../types/offer';
+import { CommonOffer } from '../../types/offer.types';
 import { FavoriteCard } from '../../components/favorite-card/favorite-card';
 import { Header } from '../../components/header';
 import { Footer } from '../../components/footer';
@@ -29,7 +29,13 @@ export function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              { Array.from(citiesOffers).map(([cityName, offersInCity]) => <FavoriteCard key={cityName} cityName={cityName} offersInCity={offersInCity}/>) }
+              { Array.from(citiesOffers).map(([cityName, offersInCity]) => (
+                <FavoriteCard
+                  key={cityName}
+                  cityName={cityName}
+                  offersInCity={offersInCity}
+                />)
+              )}
             </ul>
           </section>
         </div>
