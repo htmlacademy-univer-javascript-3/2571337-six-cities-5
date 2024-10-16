@@ -1,12 +1,12 @@
 import { JSX } from 'react';
 import { IPlace } from '../..';
-import PlaceCard from '../../components/CityCard/PlaceCard';
+import { PlaceCard } from '../../components/PlaceCard';
 
 interface MainPageProps {
   places: IPlace[];
 }
 
-function MainPage({ places }: MainPageProps):JSX.Element {
+export function MainPage({ places }: MainPageProps):JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -129,5 +129,3 @@ function MainPage({ places }: MainPageProps):JSX.Element {
     </div>
   );
 }
-
-export default MainPage;

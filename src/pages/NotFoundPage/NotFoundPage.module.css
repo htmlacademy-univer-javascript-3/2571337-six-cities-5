@@ -1,0 +1,25 @@
+.page__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.page__title {
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.page__link {
+    font-size: 2rem;
+}
+
+.page__link:hover {
+    color: black;
+}
