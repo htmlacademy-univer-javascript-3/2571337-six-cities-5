@@ -19,18 +19,18 @@ interface OfferCardProps {
   offer: CommonOffer;
   imageSize: TImageSize;
   block: string;
-  hoveredOffer?: (id: CommonOffer['id'] | null) => void;
+  onListOfferHover?: (id: CommonOffer['id'] | null) => void;
 }
 
-export function OfferCard({ offer, hoveredOffer, imageSize, block }: OfferCardProps):JSX.Element {
+export function OfferCard({ offer, onListOfferHover, imageSize, block }: OfferCardProps):JSX.Element {
   const { isPremium, previewImage, price, rating, isFavorite, title, type, id } = offer;
 
   const onMouseEnterHandler = () => {
-    hoveredOffer?.(id);
+    onListOfferHover?.(id);
   };
 
   const onMouseLeaveHandler = () => {
-    hoveredOffer?.(null);
+    onListOfferHover?.(null);
   };
 
 

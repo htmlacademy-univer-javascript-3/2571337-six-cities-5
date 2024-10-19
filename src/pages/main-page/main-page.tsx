@@ -1,15 +1,23 @@
-import { JSX } from 'react';
+import { JSX, useState } from 'react';
 import { CommonOffer } from '../../types/offer.types';
 import { OfferList } from '../../components/offer-list';
 import { Header } from '../../components/header';
 import { cities } from '../../mocks/cities';
 import { LocationItem } from '../../components/location-item';
+import { Map } from '../../components/map/map';
+import { TCity } from '../../types/city.types';
 
 interface MainPageProps {
   offers: CommonOffer[];
+  city: TCity;
 }
 
-export function MainPage({ offers }: MainPageProps):JSX.Element {
+export function MainPage({ offers, city }: MainPageProps):JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<CommonOffer['id'] | null>(null);
+
+  const hoveredOfferHandler = (id: CommonOffer['id'] | null) => {
+    setSelectedOffer(id);
+  };
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -18,7 +26,7 @@ export function MainPage({ offers }: MainPageProps):JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              { cities.map((city) => <LocationItem key={city} city={city}/>) }
+              { cities.map((cityItem) => <LocationItem key={cityItem} city={cityItem}/>) }
             </ul>
           </section>
         </div>
@@ -54,11 +62,11 @@ export function MainPage({ offers }: MainPageProps):JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={offers}/>
+                <OfferList onListOfferHover={hoveredOfferHandler} offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map city={city} offers={offers} selectedOffer={selectedOffer}/>
             </div>
           </div>
         </div>
