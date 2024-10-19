@@ -9,7 +9,7 @@ const ratesTitleMap = {
   terribly: 1
 };
 
-export const ReviewsForm = () => {
+export const ReviewForm = () => {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
 

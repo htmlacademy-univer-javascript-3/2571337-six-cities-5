@@ -9,7 +9,8 @@ import { CommonOffer } from '../../types/offer.types';
 type MapProps = {
     city: TCity;
     offers: CommonOffer[];
-    selectedOffer: CommonOffer['id'] | null;
+    selectedOffer?: CommonOffer['id'] | null;
+    className: string;
 }
 
 const defaultCustomIcon = new Icon({
@@ -24,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export function Map({ city, offers, selectedOffer }: MapProps) {
+export function Map({ city, offers, selectedOffer, className }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap({mapRef, city});
 
@@ -51,6 +52,6 @@ export function Map({ city, offers, selectedOffer }: MapProps) {
     }
   }, [map, offers, selectedOffer]);
   return (
-    <section className="cities__map map" ref={mapRef}/>
+    <section className={`${className} map`} ref={mapRef}/>
   );
 }

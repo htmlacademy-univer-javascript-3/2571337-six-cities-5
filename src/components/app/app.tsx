@@ -10,13 +10,15 @@ import { AppRoute } from '../../constants/routes';
 import { CommonOffer } from '../../types/offer.types';
 import { AuthStatus } from '../../constants/user';
 import { TCity } from '../../types/city.types';
+import { TComment } from '../../types/comment.types';
 
 interface AppProps {
     offers: CommonOffer[];
     city: TCity;
+    comments: TComment[];
 }
 
-export function App({ offers, city }: AppProps):JSX.Element {
+export function App({ offers, city, comments }: AppProps):JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -30,7 +32,7 @@ export function App({ offers, city }: AppProps):JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Offer} element={<OfferPage offers={offers}/>}/>
+        <Route path={AppRoute.Offer} element={<OfferPage comments={comments} offers={offers}/>}/>
         <Route path={AppRoute.NotFound} element={<NotFoundPage />}/>
         <Route path='*' element={<Navigate to={AppRoute.NotFound}/>}/>
       </Routes>
