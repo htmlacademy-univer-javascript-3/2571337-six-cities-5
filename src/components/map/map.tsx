@@ -9,7 +9,7 @@ import { CommonOffer } from '../../types/offer.types';
 type MapProps = {
     city: TCity;
     offers: CommonOffer[];
-    selectedOffer: CommonOffer['id'] | null;
+    activeOffer: CommonOffer['id'] | null;
 }
 
 const defaultCustomIcon = new Icon({
@@ -24,7 +24,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export function Map({ city, offers, selectedOffer }: MapProps) {
+export function Map({ city, offers, activeOffer }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap({mapRef, city});
 
@@ -39,7 +39,7 @@ export function Map({ city, offers, selectedOffer }: MapProps) {
         });
         marker
           .setIcon(
-            selectedOffer && selectedOffer === offer.id
+            activeOffer && activeOffer === offer.id
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -49,7 +49,7 @@ export function Map({ city, offers, selectedOffer }: MapProps) {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, activeOffer]);
   return (
     <section className="cities__map map" ref={mapRef}/>
   );

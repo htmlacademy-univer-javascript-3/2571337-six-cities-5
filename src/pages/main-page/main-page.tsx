@@ -13,10 +13,10 @@ interface MainPageProps {
 }
 
 export function MainPage({ offers, city }: MainPageProps):JSX.Element {
-  const [selectedOffer, setSelectedOffer] = useState<CommonOffer['id'] | null>(null);
+  const [activeOffer, setActiveOffer] = useState<CommonOffer['id'] | null>(null);
 
-  const hoveredOfferHandler = (id: CommonOffer['id'] | null) => {
-    setSelectedOffer(id);
+  const onActiveOfferHandler = (id: CommonOffer['id'] | null) => {
+    setActiveOffer(id);
   };
   return (
     <div className="page page--gray page--main">
@@ -62,11 +62,11 @@ export function MainPage({ offers, city }: MainPageProps):JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList onListOfferHover={hoveredOfferHandler} offers={offers}/>
+                <OfferList onActiveOffer={onActiveOfferHandler} offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <Map city={city} offers={offers} selectedOffer={selectedOffer}/>
+              <Map city={city} offers={offers} activeOffer={activeOffer}/>
             </div>
           </div>
         </div>

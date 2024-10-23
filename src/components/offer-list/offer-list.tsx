@@ -4,13 +4,13 @@ import { OfferCard } from '../offer-card';
 
 type OfferListProps = {
     offers: CommonOffer[];
-    onListOfferHover: (id: CommonOffer['id'] | null) => void;
+    onActiveOffer: (id: CommonOffer['id'] | null) => void;
 }
-export const OfferList = ({ offers, onListOfferHover}: OfferListProps) => (
+export const OfferList = ({ offers, onActiveOffer}: OfferListProps) => (
   <>
     { offers.map((offer) => (
       <OfferCard
-        onListOfferHover={onListOfferHover}
+        onActiveOffer={onActiveOffer}
         block='cities'
         imageSize='large'
         offer={offer}
