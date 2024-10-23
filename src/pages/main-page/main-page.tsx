@@ -6,7 +6,7 @@ import { cities } from '../../mocks/cities';
 import { LocationItem } from '../../components/location-item';
 import { Map } from '../../components/map';
 import { TCity } from '../../types/city.types';
-import { useSelectedOffer } from '../../hooks/use-selected-offer';
+import { useActiveOffer } from '../../hooks/use-active-offer';
 import cn from 'classnames';
 
 interface MainPageProps {
@@ -15,7 +15,7 @@ interface MainPageProps {
 }
 
 export function MainPage({ offers, city }: MainPageProps):JSX.Element {
-  const { hoveredOfferHandler, selectedOffer } = useSelectedOffer();
+  const { activeOffer, onActiveOfferHandler } = useActiveOffer();
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -62,12 +62,12 @@ export function MainPage({ offers, city }: MainPageProps):JSX.Element {
               <OffersList
                 block='cities'
                 className={cn('cities__places-list', 'tabs__content')}
-                onListOfferHover={hoveredOfferHandler}
+                onActiveOfferHandler={onActiveOfferHandler}
                 offers={offers}
               />
             </section>
             <div className="cities__right-section">
-              <Map className='cities__map' city={city} offers={offers} selectedOffer={selectedOffer}/>
+              <Map className='cities__map' city={city} offers={offers} activeOffer={activeOffer}/>
             </div>
           </div>
         </div>

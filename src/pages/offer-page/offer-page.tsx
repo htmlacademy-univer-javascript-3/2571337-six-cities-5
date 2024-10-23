@@ -8,7 +8,7 @@ import { ReviewsList } from '../../components/reviews-list';
 import { TComment } from '../../types/comment.types';
 import { Map } from '../../components/map';
 import { OffersList } from '../../components/offers-list';
-import { useSelectedOffer } from '../../hooks/use-selected-offer';
+import { useSelectedOffer } from '../../hooks/use-active-offer';
 
 
 type OfferPageProps = {
