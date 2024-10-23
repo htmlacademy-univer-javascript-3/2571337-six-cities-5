@@ -9,16 +9,18 @@ import { PrivateRoute } from '../private-route/private-route';
 import { AppRoute } from '../../constants/routes';
 import { CommonOffer } from '../../types/offer.types';
 import { AuthStatus } from '../../constants/user';
+import { TCity } from '../../types/city.types';
 
 interface AppProps {
     offers: CommonOffer[];
+    city: TCity;
 }
 
-export function App({ offers }: AppProps):JSX.Element {
+export function App({ offers, city }: AppProps):JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage offers={offers}/>}/>
+        <Route path={AppRoute.Main} element={<MainPage city={city} offers={offers}/>}/>
         <Route path={AppRoute.Login} element={<LoginPage/>}/>
         <Route
           path={AppRoute.Favorites}
