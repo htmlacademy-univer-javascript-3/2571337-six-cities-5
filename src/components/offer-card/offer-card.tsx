@@ -19,18 +19,18 @@ interface OfferCardProps {
   offer: CommonOffer;
   imageSize: TImageSize;
   block: string;
-  hoveredOffer?: (id: CommonOffer['id'] | null) => void;
+  onActiveOfferHandler?: (id: CommonOffer['id'] | null) => void;
 }
 
-export function OfferCard({ offer, hoveredOffer, imageSize, block }: OfferCardProps):JSX.Element {
+export function OfferCard({ offer, onActiveOfferHandler, imageSize, block }: OfferCardProps):JSX.Element {
   const { isPremium, previewImage, price, rating, isFavorite, title, type, id } = offer;
 
   const onMouseEnterHandler = () => {
-    hoveredOffer?.(id);
+    onActiveOfferHandler?.(id);
   };
 
   const onMouseLeaveHandler = () => {
-    hoveredOffer?.(null);
+    onActiveOfferHandler?.(null);
   };
 
 
@@ -47,14 +47,14 @@ export function OfferCard({ offer, hoveredOffer, imageSize, block }: OfferCardPr
         </div>
       }
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link to="#">
           <img
             className="place-card__image"
             src={previewImage}
             {...imageSizeMap[imageSize]}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className={`${block}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
