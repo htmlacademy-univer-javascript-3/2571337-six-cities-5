@@ -1,4 +1,3 @@
-import { useAppSelector } from '../../store/hooks';
 import { CommonOffer } from '../../types/offer.types';
 import { OfferCard } from '../offer-card';
 import cn from 'classnames';
@@ -8,14 +7,14 @@ type OffersListProps = {
     onActiveOfferHandler?: (id: CommonOffer['id'] | null) => void;
     className: string;
     block: string;
+    offers: CommonOffer[];
 }
 export const OffersList = (props: OffersListProps) => {
-  const { onActiveOfferHandler, className, block} = props;
-  const { cityName, offers } = useAppSelector((state) => state.offers);
+  const { onActiveOfferHandler, className, block, offers} = props;
 
   return (
     <div className={cn(className, 'places__list')}>
-      { offers.filter(({ city }) => city.name === cityName).map((offer) => (
+      { offers.map((offer) => (
         <OfferCard
           onActiveOfferHandler={onActiveOfferHandler}
           block={block}

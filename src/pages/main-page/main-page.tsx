@@ -61,6 +61,7 @@ export function MainPage({ city }: MainPageProps):JSX.Element {
                 block='cities'
                 className={cn('cities__places-list', 'tabs__content')}
                 onActiveOfferHandler={onActiveOfferHandler}
+                offers={offers.filter(({ city: { name } }) => name === cityName)}
               />
             </section>
             <div className="cities__right-section">
