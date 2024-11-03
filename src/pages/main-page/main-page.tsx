@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import { JSX, useMemo } from 'react';
 import { OffersList } from '../../components/offers-list';
 import { Header } from '../../components/header';
 import { Map } from '../../components/map';
@@ -18,6 +18,9 @@ interface MainPageProps {
 export function MainPage({ city }: MainPageProps):JSX.Element {
   const { activeOffer, onActiveOfferHandler } = useActiveOffer();
   const { cityName, offers, sortingVariant } = useAppSelector((state) => state.offers);
+
+  const curentOffers = useMemo(() => sortOffers(sortingVariant,offers.filter(({ city: { name } }) => name === cityName)), [offers, cityName, sortingVariant]);
+
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -32,17 +35,17 @@ export function MainPage({ city }: MainPageProps):JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.filter(({ city: { name } }) => name === cityName).length} places to stay in { cityName }</b>
+              <b className="places__found">{curentOffers.length} places to stay in { cityName }</b>
               <SortingVariants/>
               <OffersList
                 block='cities'
                 className={cn('cities__places-list', 'tabs__content')}
                 onActiveOfferHandler={onActiveOfferHandler}
-                offers={sortOffers(sortingVariant, offers.filter(({ city: { name } }) => name === cityName))}
+                offers={curentOffers}
               />
             </section>
             <div className="cities__right-section">
-              <Map className='cities__map' city={city} offers={sortOffers(sortingVariant, offers.filter(({ city: { name } }) => name === cityName))} activeOffer={activeOffer}/>
+              <Map className='cities__map' city={city} offers={curentOffers} activeOffer={activeOffer}/>
             </div>
           </div>
         </div>
