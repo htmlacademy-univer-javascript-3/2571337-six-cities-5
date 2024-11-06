@@ -1,6 +1,6 @@
 import { ChangeEvent, Fragment, useState } from 'react';
 import { COMMENT_MAX_LENGTH, COMMENT_MIN_LENGTH } from '../../constants/review-form';
-import { toStringOrNumber } from '../../utils/toStringOrNumber';
+import { toStringOrNumber } from '../../utils/to-string-or-number';
 
 const ratesTitleMap = {
   perfect: 5,
@@ -15,7 +15,7 @@ const initialReviewsFormValues = {
   rating: 0
 };
 
-export const ReviewsForm = () => {
+export const ReviewForm = () => {
   const [reviewsFormValues, setReviewsFormValues] = useState(initialReviewsFormValues);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

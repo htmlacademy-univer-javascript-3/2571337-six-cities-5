@@ -1,6 +1,6 @@
 import { JSX, useMemo } from 'react';
 import { CommonOffer } from '../../types/offer.types';
-import { FavoriteCard } from '../../components/favorite-card/favorite-card';
+import { FavoriteCard } from '../../components/favorite-card';
 import { Header } from '../../components/header';
 import { Footer } from '../../components/footer';
 

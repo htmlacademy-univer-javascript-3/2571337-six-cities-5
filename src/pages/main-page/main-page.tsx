@@ -1,11 +1,13 @@
-import { JSX, useState } from 'react';
+import { JSX } from 'react';
 import { CommonOffer } from '../../types/offer.types';
-import { OfferList } from '../../components/offer-list';
+import { OffersList } from '../../components/offers-list';
 import { Header } from '../../components/header';
 import { cities } from '../../mocks/cities';
 import { LocationItem } from '../../components/location-item';
-import { Map } from '../../components/map/map';
+import { Map } from '../../components/map';
 import { TCity } from '../../types/city.types';
+import { useActiveOffer } from '../../hooks/use-active-offer';
+import cn from 'classnames';
 
 interface MainPageProps {
   offers: CommonOffer[];
@@ -13,11 +15,7 @@ interface MainPageProps {
 }
 
 export function MainPage({ offers, city }: MainPageProps):JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<CommonOffer['id'] | null>(null);
-
-  const onActiveOfferHandler = (id: CommonOffer['id'] | null) => {
-    setActiveOffer(id);
-  };
+  const { activeOffer, onActiveOfferHandler } = useActiveOffer();
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -61,12 +59,15 @@ export function MainPage({ offers, city }: MainPageProps):JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <OfferList onActiveOffer={onActiveOfferHandler} offers={offers}/>
-              </div>
+              <OffersList
+                block='cities'
+                className={cn('cities__places-list', 'tabs__content')}
+                onActiveOfferHandler={onActiveOfferHandler}
+                offers={offers}
+              />
             </section>
             <div className="cities__right-section">
-              <Map city={city} offers={offers} activeOffer={activeOffer}/>
+              <Map className='cities__map' city={city} offers={offers} activeOffer={activeOffer}/>
             </div>
           </div>
         </div>
