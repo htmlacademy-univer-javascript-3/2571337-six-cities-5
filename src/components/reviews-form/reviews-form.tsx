@@ -1,5 +1,6 @@
 import { ChangeEvent, Fragment, useState } from 'react';
 import { COMMENT_MAX_LENGTH, COMMENT_MIN_LENGTH } from '../../constants/review-form';
+import { toStringOrNumber } from '../../utils/toStringOrNumber';
 
 const ratesTitleMap = {
   perfect: 5,
@@ -9,19 +10,24 @@ const ratesTitleMap = {
   terribly: 1
 };
 
+const initialReviewsFormValues = {
+  comment: '',
+  rating: 0
+};
+
 export const ReviewsForm = () => {
-  const [comment, setComment] = useState('');
-  const [rating, setRating] = useState(0);
+  const [reviewsFormValues, setReviewsFormValues] = useState(initialReviewsFormValues);
 
-  const onChangeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value);
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const key = e.target.name;
+    const value = e.target.value;
+    setReviewsFormValues((prev) => ({
+      ...prev,
+      [key]: toStringOrNumber(reviewsFormValues, key, value)
+    }));
   };
 
-  const onChangeRating = (e: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(e.target.value));
-  };
-
-  const isValid = comment.length >= COMMENT_MIN_LENGTH && comment.length <= COMMENT_MAX_LENGTH && rating > 0;
+  const isValid = reviewsFormValues.comment.length >= COMMENT_MIN_LENGTH && reviewsFormValues.comment.length <= COMMENT_MAX_LENGTH && reviewsFormValues.rating > 0;
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -34,9 +40,9 @@ export const ReviewsForm = () => {
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              onChange={onChangeRating}
+              onChange={onChangeHandler}
               value={rate}
-              checked={rating === rate}
+              checked={reviewsFormValues.rating === rate}
               id={`${rate}-stars`}
               type="radio"
             />
@@ -56,9 +62,9 @@ export const ReviewsForm = () => {
         className="reviews__textarea form__textarea"
         id="review"
         name="comment"
-        onChange={onChangeComment}
+        onChange={onChangeHandler}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={comment}
+        value={reviewsFormValues.comment}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
