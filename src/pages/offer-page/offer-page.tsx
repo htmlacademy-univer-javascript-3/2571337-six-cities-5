@@ -8,6 +8,7 @@ import { ReviewsList } from '../../components/reviews-list';
 import { TComment } from '../../types/comment.types';
 import { Map } from '../../components/map';
 import { OffersList } from '../../components/offers-list';
+import { useActiveOffer } from '../../hooks/use-active-offer';
 
 
 type OfferPageProps = {
@@ -16,6 +17,7 @@ type OfferPageProps = {
 }
 export function OfferPage({ offers, comments }: OfferPageProps):JSX.Element {
   const {offerId} = useParams();
+  const { activeOffer, onActiveOfferHandler } = useActiveOffer();
   const offer = offers.find((o) => o.id === offerId);
 
   if (!offer) {
@@ -80,7 +82,7 @@ export function OfferPage({ offers, comments }: OfferPageProps):JSX.Element {
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  { offer.title }
+              Beautiful &amp; luxurious studio at great location
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width={31} height={33}>
@@ -165,7 +167,7 @@ export function OfferPage({ offers, comments }: OfferPageProps):JSX.Element {
             className='offer__map'
             city={offer.city}
             offers={offers}
-            activeOffer={offer.id}
+            activeOffer={activeOffer}
           />
         </section>
         <div className="container">
@@ -177,6 +179,7 @@ export function OfferPage({ offers, comments }: OfferPageProps):JSX.Element {
               block='near-places'
               className='near-places__list'
               offers={offers}
+              onActiveOfferHandler={onActiveOfferHandler}
             />
           </section>
         </div>
