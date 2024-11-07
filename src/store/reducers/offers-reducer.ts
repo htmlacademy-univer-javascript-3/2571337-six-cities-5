@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CommonOffer } from '../types/offer.types';
-import { changeCityName, changeSortingVariant, fillOffers, setIsLoading } from './action';
-import { City } from '../constants/cities';
-import { SortingVariant } from '../constants/sorting-variants';
+import { CommonOffer } from '../../types/offer.types';
+import { changeCityName, changeSortingVariant, fillOffers, setIsLoading } from '../action';
+import { City } from '../../constants/cities';
+import { SortingVariant } from '../../constants/sorting-variants';
 
 type InitialState = {
     cityName: City;
@@ -15,7 +15,7 @@ const initialState: InitialState = {
   cityName: City.Paris,
   sortingVariant: SortingVariant.Popular,
   offers: [],
-  isLoading: false
+  isLoading: false,
 };
 
 export const offersReducer = createReducer(initialState, (builder) => {
