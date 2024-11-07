@@ -3,7 +3,7 @@ import { TUser } from './user.types';
 export type TComment = {
     id: string;
     date: string;
-    user: TUser;
+    user: Omit<TUser, 'email' | 'token'>;
     comment: string;
     rating: 1 | 2 | 3 | 4 | 5;
 }
