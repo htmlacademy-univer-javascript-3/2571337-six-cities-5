@@ -4,7 +4,16 @@ import { AppRoute } from '../../constants/routes';
 import { AuthStatus } from '../../constants/user';
 import { useAppSelector } from '../../store/hooks';
 
-export function PrivateRoute({ children }: PropsWithChildren){
-  const authStatus = useAppSelector((state) => state.user.authorizationStatus);
-  return authStatus === AuthStatus.Authorized ? children : <Navigate to={AppRoute.Login}/>;
+
+type PrivateRouteProps = {
+  to?: AppRoute;
+  needAuthStatus?: AuthStatus;
+} & PropsWithChildren;
+export function PrivateRoute({
+  children,
+  needAuthStatus = AuthStatus.Authorized,
+  to = AppRoute.Login
+}: PrivateRouteProps){
+  const userStatus = useAppSelector((state) => state.user.authorizationStatus);
+  return userStatus === needAuthStatus ? children : <Navigate to={to}/>;
 }

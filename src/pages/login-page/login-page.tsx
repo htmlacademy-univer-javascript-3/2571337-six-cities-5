@@ -1,19 +1,12 @@
 import { FormEvent, JSX, useRef } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../store/hooks';
 import { login } from '../../store/api-action';
 import { AuthCredentials } from '../../types/user.types';
-import { AuthStatus } from '../../constants/user';
-import { AppRoute } from '../../constants/routes';
 
 export function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   const formRef = useRef<HTMLFormElement>(null);
-
-  if (authorizationStatus === AuthStatus.Authorized) {
-    return <Navigate to={AppRoute.Main}/>;
-  }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
