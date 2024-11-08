@@ -4,11 +4,11 @@ import { Icon, layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { TCity } from '../../types/city.types';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../constants/map';
-import { CommonOffer } from '../../types/offer.types';
+import { CommonOffer, Offer } from '../../types/offer.types';
 
 type MapProps = {
     city: TCity;
-    offers: CommonOffer[];
+    offers: Array<CommonOffer | Offer>;
     activeOffer?: CommonOffer['id'] | null;
     className: string;
 }

@@ -78,7 +78,7 @@ export function OfferCard({ offer, onActiveOfferHandler, imageSize, block }: Off
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${20 * rating}%` }} />
+            <span style={{ width: `${20 * Math.ceil(rating)}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

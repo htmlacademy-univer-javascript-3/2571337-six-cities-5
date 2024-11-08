@@ -1,12 +1,14 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CommonOffer } from '../../types/offer.types';
-import { changeCityName, changeSortingVariant, fillOffers, setIsLoading } from '../action';
+import { CommonOffer, Offer } from '../../types/offer.types';
+import { changeCityName, changeSortingVariant, fillNearbyOffers, fillOffer, fillOffers, setIsLoading } from '../action';
 import { City } from '../../constants/cities';
 import { SortingVariant } from '../../constants/sorting-variants';
 
 type InitialState = {
     cityName: City;
     offers: CommonOffer[];
+    nearbyOffers: CommonOffer[];
+    offer: Offer | null;
     sortingVariant: SortingVariant;
     isLoading: boolean;
 }
@@ -15,7 +17,9 @@ const initialState: InitialState = {
   cityName: City.Paris,
   sortingVariant: SortingVariant.Popular,
   offers: [],
+  nearbyOffers: [],
   isLoading: false,
+  offer: null
 };
 
 export const offersReducer = createReducer(initialState, (builder) => {
@@ -31,5 +35,11 @@ export const offersReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setIsLoading, (state, { payload: isLoading }) => {
       state.isLoading = isLoading;
+    })
+    .addCase(fillOffer, (state, { payload: offer }) => {
+      state.offer = offer;
+    })
+    .addCase(fillNearbyOffers, (state, { payload: nearbyOffers }) => {
+      state.nearbyOffers = nearbyOffers;
     });
 });
