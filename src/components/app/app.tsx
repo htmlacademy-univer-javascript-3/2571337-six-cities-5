@@ -12,6 +12,7 @@ import { TCity } from '../../types/city.types';
 import { TComment } from '../../types/comment.types';
 import { HistoryRouter } from '../history-route/history-route';
 import { browserHistory } from '../../browser-history';
+import { AuthStatus } from '../../constants/user';
 
 interface AppProps {
     offers: CommonOffer[];
@@ -24,7 +25,7 @@ export function App({ offers, city, comments }: AppProps):JSX.Element {
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={<MainPage city={city} />}/>
-        <Route path={AppRoute.Login} element={<LoginPage/>}/>
+        <Route path={AppRoute.Login} element={<PrivateRoute needAuthStatus={AuthStatus.Unauthorized} to={AppRoute.Main}><LoginPage/></PrivateRoute>}/>
         <Route
           path={AppRoute.Favorites}
           element={
