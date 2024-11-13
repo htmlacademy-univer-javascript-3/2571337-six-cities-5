@@ -8,6 +8,8 @@ import cn from 'classnames';
 import { City } from '../../constants/cities';
 import { useAppSelector } from '../../store/hooks';
 import { LocationsList } from '../../components/locations-list';
+import { SortingVariants } from '../../components/sorting-variants';
+import { sortOffers } from '../../helpers/sort-offers';
 
 interface MainPageProps {
   city: TCity;
@@ -15,9 +17,9 @@ interface MainPageProps {
 
 export function MainPage({ city }: MainPageProps):JSX.Element {
   const { activeOffer, onActiveOfferHandler } = useActiveOffer();
-  const { cityName, offers } = useAppSelector((state) => state.offers);
+  const { cityName, offers, sortingVariant } = useAppSelector((state) => state.offers);
 
-  const currentOffers = useMemo(() => offers.filter(({ city: { name } }) => name === cityName), [cityName, offers]);
+  const curentOffers = useMemo(() => sortOffers(sortingVariant,offers.filter(({ city: { name } }) => name === cityName)), [offers, cityName, sortingVariant]);
 
   return (
     <div className="page page--gray page--main">
@@ -33,42 +35,17 @@ export function MainPage({ city }: MainPageProps):JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers.length} places to stay in { cityName }</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-              Popular
-                  <svg className="places__sorting-arrow" width={7} height={4}>
-                    <use xlinkHref="#icon-arrow-select" />
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li
-                    className="places__option places__option--active"
-                    tabIndex={0}
-                  >
-                Popular
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                Price: low to high
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                Price: high to low
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                Top rated first
-                  </li>
-                </ul>
-              </form>
+              <b className="places__found">{curentOffers.length} places to stay in { cityName }</b>
+              <SortingVariants/>
               <OffersList
                 block='cities'
                 className={cn('cities__places-list', 'tabs__content')}
                 onActiveOfferHandler={onActiveOfferHandler}
-                offers={currentOffers}
+                offers={curentOffers}
               />
             </section>
             <div className="cities__right-section">
-              <Map className='cities__map' city={city} offers={currentOffers} activeOffer={activeOffer}/>
+              <Map className='cities__map' city={city} offers={curentOffers} activeOffer={activeOffer}/>
             </div>
           </div>
         </div>
