@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CommonOffer, Offer } from '../../types/offer.types';
-import { changeCityName, changeSortingVariant, fillNearbyOffers, fillOffer, fillOffers, setIsLoading } from '../action';
+import { changeCityName, changeSortingVariant, fillNearbyOffers, setOffer, fillOffers, setIsLoading } from '../action';
 import { City } from '../../constants/cities';
 import { SortingVariant } from '../../constants/sorting-variants';
 
@@ -36,7 +36,7 @@ export const offersReducer = createReducer(initialState, (builder) => {
     .addCase(setIsLoading, (state, { payload: isLoading }) => {
       state.isLoading = isLoading;
     })
-    .addCase(fillOffer, (state, { payload: offer }) => {
+    .addCase(setOffer, (state, { payload: offer }) => {
       state.offer = offer;
     })
     .addCase(fillNearbyOffers, (state, { payload: nearbyOffers }) => {

@@ -10,7 +10,7 @@ import { TComment } from '../types/comment.types';
 
 export const changeCityName = createAction<City>('offers/changeCityName');
 export const fillOffers = createAction<CommonOffer[]>('offers/fillOffers');
-export const fillOffer = createAction<Offer>('offers/fillOffer');
+export const setOffer = createAction<Offer | null>('offers/fillOffer');
 export const changeSortingVariant = createAction<SortingVariant>('offers/changeSortingVariant');
 export const setIsLoading = createAction<boolean>('offers/setIsLoading');
 export const fillNearbyOffers = createAction<CommonOffer[]>('offers/fillNearbyOffers');

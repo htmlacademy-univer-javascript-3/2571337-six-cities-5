@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { CommonOffer } from '../../types/offer.types';
-import { OfferCard } from '../offer-card';
+import { CommonOffer } from '../../../../types/offer.types';
+import { OfferCard } from '../../../../components/offer-card';
 
 type FavoriteCardProps = {
     cityName: string;

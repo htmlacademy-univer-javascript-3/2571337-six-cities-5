@@ -3,7 +3,7 @@ import { AxiosInstance, AxiosResponse } from 'axios';
 import { APIRoute } from '../constants/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { CommonOffer, Offer } from '../types/offer.types';
-import { addNewComment, fillComments, fillNearbyOffers, fillOffer, fillOffers, redirectToRoute, setAuthorizationStatus, setError, setIsLoading } from './action';
+import { addNewComment, fillComments, fillNearbyOffers, fillOffers, redirectToRoute, setAuthorizationStatus, setError, setIsLoading, setOffer } from './action';
 import { AuthCredentials, TUser } from '../types/user.types';
 import { dropToken, setToken } from '../services/token';
 import { AuthStatus } from '../constants/user';
@@ -111,7 +111,7 @@ export const fetchOffer = createAsyncThunk<void, string,
   async (offerId, { dispatch, extra: api }) => {
     try {
       const {data: offer} = await api.get<Offer>(`${APIRoute.Offers}${offerId}/`);
-      dispatch(fillOffer(offer));
+      dispatch(setOffer(offer));
     } catch {
       dispatch(redirectToRoute(AppRoute.NotFound));
     }

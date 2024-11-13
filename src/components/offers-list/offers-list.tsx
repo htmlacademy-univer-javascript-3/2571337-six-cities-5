@@ -12,15 +12,24 @@ type OffersListProps = {
 export const OffersList = (props: OffersListProps) => {
   const { onActiveOfferHandler, className, block, offers} = props;
 
+  const onMouseEnterCardHandler = ({idOffer}: {idOffer: CommonOffer['id']}) => {
+    onActiveOfferHandler?.(idOffer);
+  };
+
+  const onMouseLeaveCardHandler = () => {
+    onActiveOfferHandler?.(null);
+  };
+
   return (
     <div className={cn(className, 'places__list')}>
       { offers.map((offer) => (
         <OfferCard
-          onActiveOfferHandler={onActiveOfferHandler}
           block={block}
           imageSize='large'
           offer={offer}
           key={offer.id}
+          onMouseEnterHandler={onMouseEnterCardHandler}
+          onMouseLeaveHandler={onMouseLeaveCardHandler}
         />
       ))}
     </div>

@@ -1,8 +1,7 @@
 import { JSX, useMemo } from 'react';
 import { CommonOffer } from '../../types/offer.types';
-import { FavoriteCard } from '../../components/favorite-card';
-import { Header } from '../../components/header';
-import { Footer } from '../../components/footer';
+import { FavoriteCard } from './components/favorite-card';
+import { Footer } from './components/footer';
 
 type FavoritesPageProps = {
   offers: CommonOffer[];
@@ -22,8 +21,7 @@ export function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
     return map;
   }, [offers]);
   return (
-    <div className="page">
-      <Header/>
+    <>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -41,6 +39,6 @@ export function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
         </div>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
