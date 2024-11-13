@@ -1,3 +1,4 @@
+import { City } from '../constants/cities';
 import { CommonOffer, PlaceType } from '../types/offer.types';
 
 export const offers: CommonOffer[] = [
@@ -7,7 +8,7 @@ export const offers: CommonOffer[] = [
     'type': PlaceType.Apartment,
     'price': 120,
     'city': {
-      'name': 'Amsterdam',
+      'name': City.Amsterdam,
       'location': {
         'latitude': 52.35514938496378,
         'longitude': 4.673877537499948,
@@ -30,7 +31,7 @@ export const offers: CommonOffer[] = [
     'type': PlaceType.House,
     'price': 333,
     'city': {
-      'name': 'Amsterdam',
+      'name': City.Amsterdam,
       'location': {
         'latitude': 52.35514938496378,
         'longitude': 4.673877537499948,
@@ -53,7 +54,7 @@ export const offers: CommonOffer[] = [
     'type': PlaceType.Room,
     'price': 999,
     'city': {
-      'name': 'Amsterdam',
+      'name': City.Paris,
       'location': {
         'latitude': 52.35514938496378,
         'longitude': 4.673877537499948,
@@ -76,7 +77,7 @@ export const offers: CommonOffer[] = [
     'type': PlaceType.House,
     'price': 123,
     'city': {
-      'name': 'Amsterdam',
+      'name': City.Paris,
       'location': {
         'latitude': 52.35514938496378,
         'longitude': 4.673877537499948,

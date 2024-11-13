@@ -22,7 +22,7 @@ export function App({ offers, city, comments }: AppProps):JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage city={city} offers={offers}/>}/>
+        <Route path={AppRoute.Main} element={<MainPage city={city} />}/>
         <Route path={AppRoute.Login} element={<LoginPage/>}/>
         <Route
           path={AppRoute.Favorites}

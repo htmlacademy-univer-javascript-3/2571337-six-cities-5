@@ -4,17 +4,17 @@ import cn from 'classnames';
 
 
 type OffersListProps = {
-    offers: CommonOffer[];
     onActiveOfferHandler?: (id: CommonOffer['id'] | null) => void;
     className: string;
     block: string;
+    offers: CommonOffer[];
 }
 export const OffersList = (props: OffersListProps) => {
-  const { offers, onActiveOfferHandler, className, block} = props;
+  const { onActiveOfferHandler, className, block, offers} = props;
 
   return (
     <div className={cn(className, 'places__list')}>
-      { offers && offers.map((offer) => (
+      { offers.map((offer) => (
         <OfferCard
           onActiveOfferHandler={onActiveOfferHandler}
           block={block}
