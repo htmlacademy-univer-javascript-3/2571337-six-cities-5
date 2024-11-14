@@ -4,6 +4,7 @@ import { ReviewForm } from '../../components/review-form';
 import { ReviewsList } from '../../components/reviews-list';
 import { Map } from '../../components/map';
 import { OffersList } from '../../components/offers-list';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchNearbyOffers, fetchOffer } from '../../store/offers-process/api-actions';
 import { fetchComments } from '../../store/comments-process/api-actions';
@@ -23,6 +24,7 @@ import { selectFilteredComments } from '../../store/comments-process/selectors';
 
 export function OfferPage():JSX.Element {
   const {offerId} = useParams();
+
   const dispatch = useAppDispatch();
   const { authStatus } = useAppSelector(selectAuthStatus);
   const { nearbyOffers } = useAppSelector(selectNearbyOffers);
