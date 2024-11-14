@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { offersReducer } from './reducers/offers-reducer';
+import { offersReducer } from './offers-process/offers-reducer';
 import { createApi } from '../services/api';
-import { usersReducer } from './reducers/user-reducer';
+import { usersReducer } from './user-process/user-reducer';
 import { redirect } from './middlewares/redirect';
-import { commentsReducer } from './reducers/comments-reducer';
+import { commentsReducer } from './comments-process/comments-reducer';
 
 export const api = createApi();
 

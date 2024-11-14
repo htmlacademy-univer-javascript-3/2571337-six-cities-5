@@ -5,35 +5,38 @@ import { ReviewsList } from '../../components/reviews-list';
 import { Map } from '../../components/map';
 import { OffersList } from '../../components/offers-list';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchComments, fetchNearbyOffers, fetchOffer } from '../../store/api-action';
+import { fetchNearbyOffers, fetchOffer } from '../../store/offers-process/api-actions';
+import { fetchComments } from '../../store/comments-process/api-actions';
 import { Spinner } from '../../components/spinner';
 import { OfferGallery } from './components/offer-gallery';
 import { OfferGoods } from './components/offer-goods';
 import { OfferHost } from './components/offer-host';
 import { stringWithPluralRule } from '../../utils/string-with-plural-rule';
-import { sortByDate } from '../../utils/sort-by-date';
 import { AuthStatus } from '../../constants/user';
-import { setOffer } from '../../store/action';
+import { clearOffer } from '../../store/offers-process/offers-reducer';
 import { OfferPremiumMark } from '../../components/offer-premium-mark';
 import { ButtonToBookmark } from '../../components/button-to-bookmark';
 import { OfferRating } from '../../components/offer-rating';
+import { selectAuthStatus } from '../../store/user-process/selectors';
+import { selectNearbyOffers, selectOffer } from '../../store/offers-process/selectors';
+import { selectFilteredComments } from '../../store/comments-process/selectors';
 
 export function OfferPage():JSX.Element {
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
-  const {offer, nearbyOffers, comments, authStatus} = useAppSelector((state) => ({
-    offer: state.offers.offer,
-    nearbyOffers: state.offers.nearbyOffers,
-    comments: state.comments.comments,
-    authStatus: state.user.authorizationStatus
-  }));
+  const { authStatus } = useAppSelector(selectAuthStatus);
+  const { nearbyOffers } = useAppSelector(selectNearbyOffers);
+  const { offer } = useAppSelector(selectOffer);
+  const { commentsLength, filteredComments } = useAppSelector(selectFilteredComments);
 
-  const slicedNearbyOffers = useMemo(() => offer ? [...nearbyOffers.slice(0, 3), offer] : [], [nearbyOffers, offer]);
-
-  const sortedComments = sortByDate(comments.slice(0, 10), 'date');
+  const nearbyOffersOnMap = useMemo(
+    () => offer
+      ? [...nearbyOffers.slice(0, 3), offer]
+      : []
+    , [nearbyOffers, offer]);
 
   useEffect(() => () => {
-    dispatch(setOffer(null));
+    dispatch(clearOffer());
   }, [dispatch]);
 
   useEffect(() => {
@@ -87,9 +90,9 @@ export function OfferPage():JSX.Element {
             <OfferHost host={offer.host} description={offer.description}/>
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">{comments.length}</span>
+                  Reviews · <span className="reviews__amount">{commentsLength}</span>
               </h2>
-              <ReviewsList comments={sortedComments}/>
+              <ReviewsList comments={filteredComments}/>
               {
                 authStatus === AuthStatus.Authorized && <ReviewForm offerId={offer.id} />
               }
@@ -98,10 +101,10 @@ export function OfferPage():JSX.Element {
         </div>
         <section className="offer__map map">
           {
-            slicedNearbyOffers.length > 0 &&
+            nearbyOffersOnMap.length > 0 &&
               <Map
                 city={offer.city}
-                offers={slicedNearbyOffers}
+                offers={nearbyOffersOnMap}
                 activeOffer={offer.id}
               />
           }

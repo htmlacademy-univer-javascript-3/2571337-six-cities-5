@@ -29,7 +29,6 @@ interface OfferCardProps {
 export function OfferCard({ offer, imageSize, block, onMouseEnterHandler, onMouseLeaveHandler }: OfferCardProps):JSX.Element {
   const { isPremium, previewImage, price, rating, isFavorite, title, type, id } = offer;
 
-
   return (
     <article
       className={`${block}__card place-card`}

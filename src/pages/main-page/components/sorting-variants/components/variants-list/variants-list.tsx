@@ -1,8 +1,9 @@
 import cn from 'classnames';
 import { SortingVariant } from '../../../../../../constants/sorting-variants';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/hooks';
-import { changeSortingVariant } from '../../../../../../store/action';
 import { VariantItem } from '../variant-item';
+import { selectSortingVariant } from '../../../../../../store/offers-process/selectors';
+import { changeSortingVariant } from '../../../../../../store/offers-process/offers-reducer';
 
 type VariantsListProps = {
     expanded: boolean;
@@ -10,7 +11,7 @@ type VariantsListProps = {
 }
 export const VariantsList = ({ expanded, toggleExpanded }: VariantsListProps) => {
   const dispatch = useAppDispatch();
-  const sortingVariant = useAppSelector((state) => state.offers.sortingVariant);
+  const {sortingVariant} = useAppSelector(selectSortingVariant);
 
   const onChangeSortingVariant = (newSortingVariant: SortingVariant) => {
     dispatch(changeSortingVariant(newSortingVariant));

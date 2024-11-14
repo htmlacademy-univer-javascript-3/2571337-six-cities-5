@@ -1,8 +1,8 @@
 import { FormEvent, JSX, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks';
-import { login } from '../../store/api-action';
 import { AuthCredentials } from '../../types/user.types';
+import { login } from '../../store/user-process/api-actions';
 
 export function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();

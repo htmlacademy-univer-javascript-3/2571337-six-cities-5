@@ -3,7 +3,7 @@ import { COMMENT_MAX_LENGTH, COMMENT_MIN_LENGTH } from '../../constants/review-f
 import { toStringOrNumber } from '../../utils/to-string-or-number';
 import { useAppDispatch } from '../../store/hooks';
 import { CommonOffer } from '../../types/offer.types';
-import { addCommentFx } from '../../store/api-action';
+import { addCommentFx } from '../../store/comments-process/api-actions';
 
 const ratesTitleMap = {
   perfect: 5,

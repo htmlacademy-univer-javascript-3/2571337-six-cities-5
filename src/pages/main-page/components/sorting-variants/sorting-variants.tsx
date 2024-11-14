@@ -1,10 +1,11 @@
 import { memo, useState } from 'react';
 import { useAppSelector } from '../../../../store/hooks';
 import { VariantsList } from './components/variants-list';
+import { selectSortingVariant } from '../../../../store/offers-process/selectors';
 
 const SortingVariants = () => {
   const [expanded, setExpanded] = useState(false);
-  const sortingVariant = useAppSelector((state) => state.offers.sortingVariant);
+  const {sortingVariant} = useAppSelector(selectSortingVariant);
 
   const toggleExpanded = () => setExpanded((prev) => !prev);
 

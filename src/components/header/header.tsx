@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants/routes';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { AuthStatus } from '../../constants/user';
-import { logout } from '../../store/api-action';
 import css from './header.module.css';
 import cn from 'classnames';
+import { selectAuthStatus } from '../../store/user-process/selectors';
+import { logout } from '../../store/user-process/api-actions';
 
 export const Header = () => {
-  const authStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const {authStatus} = useAppSelector(selectAuthStatus);
   const dispatch = useAppDispatch();
 
   const logOutHandler = () => {

@@ -1,27 +1,19 @@
-import { useMemo } from 'react';
 import { useActiveOffer } from '../../../../hooks/use-active-offer';
 import { useAppSelector } from '../../../../store/hooks';
-import { sortOffers } from '../../../../helpers/sort-offers';
 import { Suspense } from '../../../../components/suspense';
 import { SortingVariants } from '../sorting-variants';
 import { OffersList } from '../../../../components/offers-list';
 import { Map } from '../../../../components/map';
 import cn from 'classnames';
+import { selectCityName, selectFilteredByCityOffers, selectIsLoading } from '../../../../store/offers-process/selectors';
 
 export const CitiesView = () => {
   const { activeOffer, onActiveOfferHandler } = useActiveOffer();
-  const {
-    cityName,
-    offers,
-    sortingVariant,
-    isLoading
-  } = useAppSelector((state) => state.offers);
 
-  const filteredOffers = useMemo(() =>
-    sortOffers(
-      sortingVariant,
-      offers.filter(({ city: { name } }) => name === cityName)
-    ), [offers, cityName, sortingVariant]);
+  const { filteredOffers } = useAppSelector(selectFilteredByCityOffers);
+  const { cityName } = useAppSelector(selectCityName);
+  const { isLoading } = useAppSelector(selectIsLoading);
+
 
   return (
     <Suspense isLoading={isLoading}>
