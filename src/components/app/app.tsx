@@ -7,17 +7,12 @@ import { OfferPage } from '../../pages/offer-page';
 import { NotFoundPage } from '../../pages/not-found-page';
 import { PrivateRoute } from '../private-route/private-route';
 import { AppRoute } from '../../constants/routes';
-import { CommonOffer } from '../../types/offer.types';
 import { HistoryRouter } from '../history-route/history-route';
 import { browserHistory } from '../../browser-history';
 import { AuthStatus } from '../../constants/user';
 import { MainLayout } from '../../layouts/main-layout';
 
-interface AppProps {
-    offers: CommonOffer[];
-}
-
-export function App({ offers }: AppProps):JSX.Element {
+export function App():JSX.Element {
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
@@ -42,7 +37,7 @@ export function App({ offers }: AppProps):JSX.Element {
           element={
             <PrivateRoute>
               <MainLayout>
-                <FavoritesPage offers={offers}/>
+                <FavoritesPage />
               </MainLayout>
             </PrivateRoute>
           }

@@ -7,7 +7,7 @@ import { dropToken, setToken } from '../../services/token';
 import { redirectToRoute } from '../action';
 import { AuthStatus } from '../../constants/user';
 import { AppRoute } from '../../constants/routes';
-import { setAuthorizationStatus } from './user-reducer';
+import { setAuthorizationStatus, setUser } from './user-reducer';
 
 export const checkAuth = createAsyncThunk<void, undefined,
   {
@@ -22,6 +22,7 @@ export const checkAuth = createAsyncThunk<void, undefined,
       const user = await api.get<TUser>(APIRoute.Login);
       setToken(user.data.token);
       dispatch(setAuthorizationStatus(AuthStatus.Authorized));
+      dispatch(setUser(user.data));
     } catch {
       dispatch(setAuthorizationStatus(AuthStatus.Unauthorized));
       dispatch(redirectToRoute(AppRoute.Login));
@@ -42,6 +43,7 @@ export const login = createAsyncThunk<void, AuthCredentials,
       const user = await api.post<AuthCredentials, AxiosResponse<TUser>>(APIRoute.Login, authCredentials);
       setToken(user.data.token);
       dispatch(setAuthorizationStatus(AuthStatus.Authorized));
+      dispatch(setUser(user.data));
       dispatch(redirectToRoute(AppRoute.Main));
     } catch {
       dispatch(setAuthorizationStatus(AuthStatus.Unauthorized));
@@ -61,6 +63,7 @@ export const logout = createAsyncThunk<void, undefined,
     try {
       await api.delete(APIRoute.Logout);
       dropToken();
+      dispatch(setUser(null));
       dispatch(setAuthorizationStatus(AuthStatus.Unauthorized));
     } catch {
       dispatch(setAuthorizationStatus(AuthStatus.Authorized));

@@ -1,4 +1,4 @@
-import { JSX, useEffect, useMemo } from 'react';
+import { JSX, useCallback, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { ReviewForm } from '../../components/review-form';
 import { ReviewsList } from '../../components/reviews-list';
@@ -6,7 +6,7 @@ import { Map } from '../../components/map';
 import { OffersList } from '../../components/offers-list';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchNearbyOffers, fetchOffer } from '../../store/offers-process/api-actions';
+import { fetchNearbyOffers, fetchOffer, setFavoriteOfferStatus } from '../../store/offers-process/api-actions';
 import { fetchComments } from '../../store/comments-process/api-actions';
 import { Spinner } from '../../components/spinner';
 import { OfferGallery } from './components/offer-gallery';
@@ -21,6 +21,9 @@ import { OfferRating } from '../../components/offer-rating';
 import { selectAuthStatus } from '../../store/user-process/selectors';
 import { selectNearbyOffers, selectOffer } from '../../store/offers-process/selectors';
 import { selectFilteredComments } from '../../store/comments-process/selectors';
+import { FavoriteOfferStatus } from '../../constants/offers';
+import { redirectToRoute } from '../../store/action';
+import { AppRoute } from '../../constants/routes';
 
 export function OfferPage():JSX.Element {
   const {offerId} = useParams();
@@ -36,6 +39,20 @@ export function OfferPage():JSX.Element {
       ? [...nearbyOffers.slice(0, 3), offer]
       : []
     , [nearbyOffers, offer]);
+
+  const onClickToBookmark = useCallback(() => {
+    if (authStatus !== AuthStatus.Authorized) {
+      dispatch(redirectToRoute(AppRoute.Login));
+    } else {
+      if (offerId && offer) {
+        dispatch(setFavoriteOfferStatus({
+          offerId,
+          status: offer?.isFavorite ? FavoriteOfferStatus.NotFavorite : FavoriteOfferStatus.Favorite
+        }));
+      }
+    }
+
+  }, [offerId, offer, dispatch, authStatus]);
 
   useEffect(() => () => {
     dispatch(clearOffer());
@@ -68,6 +85,7 @@ export function OfferPage():JSX.Element {
                 block="offer__bookmark"
                 isFavorite={offer.isFavorite}
                 size="big"
+                onClick={onClickToBookmark}
               />
             </div>
             <OfferRating

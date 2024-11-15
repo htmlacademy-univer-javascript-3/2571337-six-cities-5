@@ -4,11 +4,14 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { AuthStatus } from '../../constants/user';
 import css from './header.module.css';
 import cn from 'classnames';
-import { selectAuthStatus } from '../../store/user-process/selectors';
+import { selectAuthStatus, selectUserEmail } from '../../store/user-process/selectors';
 import { logout } from '../../store/user-process/api-actions';
+import { selectFavoriteOffers } from '../../store/offers-process/selectors';
 
 export const Header = () => {
   const {authStatus} = useAppSelector(selectAuthStatus);
+  const { email } = useAppSelector(selectUserEmail);
+  const { favoriteOffers } = useAppSelector(selectFavoriteOffers);
   const dispatch = useAppDispatch();
 
   const logOutHandler = () => {
@@ -43,9 +46,9 @@ export const Header = () => {
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
-                Oliver.conner@gmail.com
+                      { email }
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favoriteOffers.length}</span>
                   </Link>
                 </li>
               }

@@ -2,12 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CommonOffer, Offer } from '../../types/offer.types';
 import { City } from '../../constants/cities';
 import { SortingVariant } from '../../constants/sorting-variants';
-import { fetchNearbyOffers, fetchOffer, fetchOffers } from './api-actions';
+import { fetchFavoriteOffers, fetchNearbyOffers, fetchOffer, fetchOffers, setFavoriteOfferStatus } from './api-actions';
 
 type InitialState = {
     cityName: City;
     offers: CommonOffer[];
     nearbyOffers: CommonOffer[];
+    favoriteOffers: CommonOffer[];
     offer: Offer | null;
     sortingVariant: SortingVariant;
     isLoading: boolean;
@@ -18,6 +19,7 @@ const initialState: InitialState = {
   sortingVariant: SortingVariant.Popular,
   offers: [],
   nearbyOffers: [],
+  favoriteOffers: [],
   isLoading: false,
   offer: null
 };
@@ -56,6 +58,21 @@ const offersSlice = createSlice({
       .addCase(fetchNearbyOffers.fulfilled, (state, {payload: nearbyOffers}) => {
         if (nearbyOffers) {
           state.nearbyOffers = nearbyOffers;
+        }
+      })
+      .addCase(fetchFavoriteOffers.fulfilled, (state, {payload: favoriteOffers}) => {
+        if (favoriteOffers) {
+          state.favoriteOffers = favoriteOffers;
+        }
+      })
+      .addCase(setFavoriteOfferStatus.fulfilled, (state, {payload: offer}) => {
+        if (offer) {
+          if (state.offer) {
+            state.offer.isFavorite = offer.isFavorite;
+          }
+          state.offers = state.offers.map(
+            (offerItem) => offerItem.id === offer.id ? ({...offerItem, isFavorite: offer.isFavorite}) : offerItem
+          );
         }
       });
   }

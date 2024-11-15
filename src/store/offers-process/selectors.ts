@@ -9,6 +9,8 @@ export const selectIsLoading = (state: TState) => ({isLoading: state.offers.isLo
 export const selectNearbyOffers = (state: TState) => ({ nearbyOffers: state.offers.nearbyOffers });
 export const selectOffer = (state: TState) => ({ offer: state.offers.offer });
 
+export const selectFavoriteOffers = (state: TState) => ({ favoriteOffers: state.offers.favoriteOffers });
+
 export const selectFilteredByCityOffers = createSelector(
   [selectOffers, selectCityName, selectSortingVariant],
   ({offers}, {cityName}, {sortingVariant}) => ({

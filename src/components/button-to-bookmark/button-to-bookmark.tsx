@@ -15,12 +15,14 @@ type ButtonToBookmarkProps = {
     block: string;
     size: keyof typeof SvgSize;
     isFavorite: boolean;
+    onClick: () => void;
 }
 
-export const ButtonToBookmark = ({ block, size, isFavorite }: ButtonToBookmarkProps) => (
+export const ButtonToBookmark = ({ block, size, isFavorite, onClick }: ButtonToBookmarkProps) => (
   <button
     className={cn('button', `${block}-button`, {[`${block}-button--active`]: isFavorite})}
     type="button"
+    onClick={onClick}
   >
     <svg
       className={cn(`${block}-icon`)}

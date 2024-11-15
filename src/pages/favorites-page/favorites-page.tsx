@@ -2,11 +2,12 @@ import { JSX, useMemo } from 'react';
 import { CommonOffer } from '../../types/offer.types';
 import { FavoriteCard } from './components/favorite-card';
 import { Footer } from './components/footer';
+import { useAppSelector } from '../../store/hooks';
+import { selectFavoriteOffers } from '../../store/offers-process/selectors';
 
-type FavoritesPageProps = {
-  offers: CommonOffer[];
-}
-export function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
+export function FavoritesPage(): JSX.Element {
+  const { favoriteOffers: offers } = useAppSelector(selectFavoriteOffers);
+
   const citiesOffers = useMemo(() => {
     const map = new Map<string, CommonOffer[]>();
     for (const offer of offers) {
@@ -20,6 +21,7 @@ export function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
     }
     return map;
   }, [offers]);
+
   return (
     <>
       <main className="page__main page__main--favorites">

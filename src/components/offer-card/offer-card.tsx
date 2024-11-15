@@ -5,6 +5,13 @@ import { capitalize } from '../../utils/capitalize';
 import { OfferPremiumMark } from '../offer-premium-mark';
 import { ButtonToBookmark } from '../button-to-bookmark';
 import { OfferRating } from '../offer-rating';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setFavoriteOfferStatus } from '../../store/offers-process/api-actions';
+import { FavoriteOfferStatus } from '../../constants/offers';
+import { selectAuthStatus } from '../../store/user-process/selectors';
+import { AuthStatus } from '../../constants/user';
+import { redirectToRoute } from '../../store/action';
+import { AppRoute } from '../../constants/routes';
 
 type TImageSize = 'small' | 'large';
 const imageSizeMap: Record<TImageSize, { width: number; height: number }> = {
@@ -27,7 +34,20 @@ interface OfferCardProps {
 }
 
 export function OfferCard({ offer, imageSize, block, onMouseEnterHandler, onMouseLeaveHandler }: OfferCardProps):JSX.Element {
+  const dispatch = useAppDispatch();
+  const { authStatus } = useAppSelector(selectAuthStatus);
   const { isPremium, previewImage, price, rating, isFavorite, title, type, id } = offer;
+
+  const onClickToBookmark = () => {
+    if (authStatus !== AuthStatus.Authorized) {
+      dispatch(redirectToRoute(AppRoute.Login));
+    } else {
+      dispatch(setFavoriteOfferStatus({
+        offerId: id,
+        status: isFavorite ? FavoriteOfferStatus.NotFavorite : FavoriteOfferStatus.Favorite
+      }));
+    }
+  };
 
   return (
     <article
@@ -56,6 +76,7 @@ export function OfferCard({ offer, imageSize, block, onMouseEnterHandler, onMous
             block="place-card__bookmark"
             isFavorite={isFavorite}
             size="small"
+            onClick={onClickToBookmark}
           />
         </div>
         <OfferRating
