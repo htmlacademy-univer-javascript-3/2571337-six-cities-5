@@ -4,6 +4,8 @@ import { FavoriteCard } from './components/favorite-card';
 import { Footer } from './components/footer';
 import { useAppSelector } from '../../store/hooks';
 import { selectFavoriteOffers } from '../../store/offers-process/selectors';
+import cn from 'classnames';
+import { StubEmptyFavoritesView } from './components/stub-empty-favorites-view';
 
 export function FavoritesPage(): JSX.Element {
   const { favoriteOffers: offers } = useAppSelector(selectFavoriteOffers);
@@ -24,19 +26,27 @@ export function FavoritesPage(): JSX.Element {
 
   return (
     <>
-      <main className="page__main page__main--favorites">
+      <main className={cn('page__main page__main--favorites', { 'page__main--favorites-empty': !offers || offers.length === 0 })}>
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              { Array.from(citiesOffers).map(([cityName, offersInCity]) => (
-                <FavoriteCard
-                  key={cityName}
-                  cityName={cityName}
-                  offersInCity={offersInCity}
-                />)
-              )}
-            </ul>
+          <section className={cn('favorites', { 'favorites--empty': !offers || offers.length === 0 })}>
+            {
+              !offers || offers.length === 0
+                ? <StubEmptyFavoritesView/>
+                :
+                <>
+                  <h1 className="favorites__title">Saved listing</h1>
+                  <ul className="favorites__list">
+                    { Array.from(citiesOffers).map(([cityName, offersInCity]) => (
+                      <FavoriteCard
+                        key={cityName}
+                        cityName={cityName}
+                        offersInCity={offersInCity}
+                      />)
+                    )}
+                  </ul>
+                </>
+            }
+
           </section>
         </div>
       </main>

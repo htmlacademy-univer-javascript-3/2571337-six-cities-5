@@ -51,29 +51,21 @@ const offersSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchOffer.fulfilled, (state, {payload: offer}) => {
-        if (offer) {
-          state.offer = offer;
-        }
+        state.offer = offer;
       })
       .addCase(fetchNearbyOffers.fulfilled, (state, {payload: nearbyOffers}) => {
-        if (nearbyOffers) {
-          state.nearbyOffers = nearbyOffers;
-        }
+        state.nearbyOffers = nearbyOffers;
       })
       .addCase(fetchFavoriteOffers.fulfilled, (state, {payload: favoriteOffers}) => {
-        if (favoriteOffers) {
-          state.favoriteOffers = favoriteOffers;
-        }
+        state.favoriteOffers = favoriteOffers;
       })
       .addCase(setFavoriteOfferStatus.fulfilled, (state, {payload: offer}) => {
-        if (offer) {
-          if (state.offer) {
-            state.offer.isFavorite = offer.isFavorite;
-          }
-          state.offers = state.offers.map(
-            (offerItem) => offerItem.id === offer.id ? ({...offerItem, isFavorite: offer.isFavorite}) : offerItem
-          );
+        if (state.offer) {
+          state.offer.isFavorite = offer.isFavorite;
         }
+        state.offers = state.offers.map(
+          (offerItem) => offerItem.id === offer.id ? ({...offerItem, isFavorite: offer.isFavorite}) : offerItem
+        );
       });
   }
 });

@@ -36,12 +36,12 @@ export const CitiesView = () => {
               </section>
           }
           <div className="cities__right-section">
-            {
-              filteredOffers.length > 0 &&
-              <section className="cities__map map">
+            <section className="cities__map map">
+              {
+                filteredOffers.length > 0 &&
                 <Map key={cityName} city={filteredOffers[0].city} offers={filteredOffers} activeOffer={activeOffer}/>
-              </section>
-            }
+              }
+            </section>
           </div>
         </div>
       </div>

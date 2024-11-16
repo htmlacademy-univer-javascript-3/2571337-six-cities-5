@@ -21,7 +21,7 @@ import { OfferRating } from '../../components/offer-rating';
 import { selectAuthStatus } from '../../store/user-process/selectors';
 import { selectNearbyOffers, selectOffer } from '../../store/offers-process/selectors';
 import { selectFilteredComments } from '../../store/comments-process/selectors';
-import { FavoriteOfferStatus } from '../../constants/offers';
+import { FavoriteOfferStatus, MAX_NEAR_OFFERS } from '../../constants/offers';
 import { redirectToRoute } from '../../store/action';
 import { AppRoute } from '../../constants/routes';
 
@@ -36,7 +36,7 @@ export function OfferPage():JSX.Element {
 
   const nearbyOffersOnMap = useMemo(
     () => offer
-      ? [...nearbyOffers.slice(0, 3), offer]
+      ? [...nearbyOffers.slice(0, MAX_NEAR_OFFERS), offer]
       : []
     , [nearbyOffers, offer]);
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks';
 import { AuthCredentials } from '../../types/user.types';
 import { login } from '../../store/user-process/api-actions';
+import { LocationItem } from './components/location-item';
 
 export function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ export function LoginPage(): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  required={false}
+                  required
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -58,7 +59,7 @@ export function LoginPage(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  required={false}
+                  required
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">
@@ -67,11 +68,7 @@ export function LoginPage(): JSX.Element {
             </form>
           </section>
           <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <Link className="locations__item-link" to="#">
-                <span>Amsterdam</span>
-              </Link>
-            </div>
+            <LocationItem />
           </section>
         </div>
       </main>

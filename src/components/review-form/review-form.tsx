@@ -1,9 +1,12 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
 import { COMMENT_MAX_LENGTH, COMMENT_MIN_LENGTH } from '../../constants/review-form';
 import { toStringOrNumber } from '../../utils/to-string-or-number';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { CommonOffer } from '../../types/offer.types';
 import { addCommentFx } from '../../store/comments-process/api-actions';
+import { selectError, selectLoadingState } from '../../store/comments-process/selectors';
+import { clearError } from '../../store/comments-process/comments-reducer';
+import { showErrorMessage } from '../../helpers/error-message';
 
 const ratesTitleMap = {
   perfect: 5,
@@ -24,7 +27,23 @@ type ReviewFormProps = {
 
 export const ReviewForm = ({ offerId }: ReviewFormProps) => {
   const [reviewsFormValues, setReviewsFormValues] = useState(initialReviewsFormValues);
+  const { isLoading } = useAppSelector(selectLoadingState);
+  const { errorMessage } = useAppSelector(selectError);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!isLoading && !errorMessage) {
+      setReviewsFormValues(initialReviewsFormValues);
+      dispatch(clearError());
+    }
+    if (!isLoading && errorMessage) {
+      showErrorMessage(errorMessage);
+    }
+  }, [errorMessage, isLoading, dispatch]);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const key = e.target.name;
@@ -38,7 +57,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addCommentFx({ offerId, commentData: reviewsFormValues }));
-    setReviewsFormValues(initialReviewsFormValues);
+
   };
 
   const isValid = reviewsFormValues.comment.length >= COMMENT_MIN_LENGTH && reviewsFormValues.comment.length <= COMMENT_MAX_LENGTH && reviewsFormValues.rating > 0;
@@ -59,6 +78,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
               checked={reviewsFormValues.rating === rate}
               id={`${rate}-stars`}
               type="radio"
+              disabled={isLoading}
             />
             <label
               htmlFor={`${rate}-stars`}
@@ -79,6 +99,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
         onChange={onChangeHandler}
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewsFormValues.comment}
+        disabled={isLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -89,7 +110,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || isLoading}
         >
       Submit
         </button>
