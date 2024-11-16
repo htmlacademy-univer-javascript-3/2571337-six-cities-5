@@ -1,4 +1,3 @@
-import { JSX } from 'react';
 import { CommonOffer } from '../../types/offer.types';
 import { Link } from 'react-router-dom';
 import { capitalize } from '../../utils/capitalize';
@@ -12,6 +11,7 @@ import { selectAuthStatus } from '../../store/user-process/selectors';
 import { AuthStatus } from '../../constants/user';
 import { redirectToRoute } from '../../store/action';
 import { AppRoute } from '../../constants/routes';
+import { memo } from 'react';
 
 type TImageSize = 'small' | 'large';
 const imageSizeMap: Record<TImageSize, { width: number; height: number }> = {
@@ -33,7 +33,7 @@ interface OfferCardProps {
   onMouseLeaveHandler?: () => void;
 }
 
-export function OfferCard({ offer, imageSize, block, onMouseEnterHandler, onMouseLeaveHandler }: OfferCardProps):JSX.Element {
+const OfferCard = ({ offer, imageSize, block, onMouseEnterHandler, onMouseLeaveHandler }: OfferCardProps) => {
   const dispatch = useAppDispatch();
   const { authStatus } = useAppSelector(selectAuthStatus);
   const { isPremium, previewImage, price, rating, isFavorite, title, type, id } = offer;
@@ -92,4 +92,6 @@ export function OfferCard({ offer, imageSize, block, onMouseEnterHandler, onMous
       </div>
     </article>
   );
-}
+};
+
+export const MemoOfferCard = memo(OfferCard);

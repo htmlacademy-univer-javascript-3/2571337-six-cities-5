@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import { CommonOffer } from '../../types/offer.types';
 import { OfferCard } from '../offer-card';
 import cn from 'classnames';
@@ -9,16 +10,16 @@ type OffersListProps = {
     block: string;
     offers: CommonOffer[];
 }
-export const OffersList = (props: OffersListProps) => {
+const OffersList = (props: OffersListProps) => {
   const { onActiveOfferHandler, className, block, offers} = props;
 
-  const onMouseEnterCardHandler = ({idOffer}: {idOffer: CommonOffer['id']}) => {
+  const onMouseEnterCardHandler = useCallback(({idOffer}: {idOffer: CommonOffer['id']}) => {
     onActiveOfferHandler?.(idOffer);
-  };
+  },[onActiveOfferHandler]);
 
-  const onMouseLeaveCardHandler = () => {
+  const onMouseLeaveCardHandler = useCallback(() => {
     onActiveOfferHandler?.(null);
-  };
+  }, [onActiveOfferHandler]);
 
   return (
     <div className={cn(className, 'places__list')}>
@@ -35,3 +36,5 @@ export const OffersList = (props: OffersListProps) => {
     </div>
   );
 };
+
+export const MemoOffersList = memo(OffersList);

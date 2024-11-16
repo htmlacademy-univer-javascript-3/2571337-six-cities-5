@@ -8,6 +8,7 @@ import { redirectToRoute } from '../action';
 import { AuthStatus } from '../../constants/user';
 import { AppRoute } from '../../constants/routes';
 import { setAuthorizationStatus, setUser } from './user-reducer';
+import { fetchFavoriteOffers } from '../offers-process/api-actions';
 
 export const checkAuth = createAsyncThunk<void, undefined,
   {
@@ -23,6 +24,7 @@ export const checkAuth = createAsyncThunk<void, undefined,
       setToken(user.data.token);
       dispatch(setAuthorizationStatus(AuthStatus.Authorized));
       dispatch(setUser(user.data));
+      dispatch(fetchFavoriteOffers());
     } catch {
       dispatch(setAuthorizationStatus(AuthStatus.Unauthorized));
       dispatch(redirectToRoute(AppRoute.Login));
@@ -44,6 +46,7 @@ export const login = createAsyncThunk<void, AuthCredentials,
       setToken(user.data.token);
       dispatch(setAuthorizationStatus(AuthStatus.Authorized));
       dispatch(setUser(user.data));
+      dispatch(fetchFavoriteOffers());
       dispatch(redirectToRoute(AppRoute.Main));
     } catch {
       dispatch(setAuthorizationStatus(AuthStatus.Unauthorized));

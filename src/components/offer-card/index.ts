@@ -1,1 +1,1 @@
-export * from './offer-card';
+export { MemoOfferCard as OfferCard } from './offer-card';

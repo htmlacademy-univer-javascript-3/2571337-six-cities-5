@@ -3,6 +3,8 @@ import { TState } from '../../types/state.types';
 import { sortOffers } from '../../helpers/sort-offers';
 
 export const selectOffers = (state: TState) => ({offers: state.offers.offers});
+export const selectOffersPrimitive = (state: TState) => state.offers.offers;
+
 export const selectCityName = (state: TState) => ({cityName: state.offers.cityName});
 export const selectSortingVariant = (state: TState) => ({sortingVariant: state.offers.sortingVariant});
 export const selectIsLoading = (state: TState) => ({isLoading: state.offers.isLoading});

@@ -1,1 +1,1 @@
-export * from './cities-view';
+export { CitiesView } from './cities-view';
