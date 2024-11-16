@@ -3,7 +3,7 @@ import cn from 'classnames';
 const SvgSize = {
   small: {
     width: 18,
-    heigth: 19
+    height: 19
   },
   big: {
     width: 31,
