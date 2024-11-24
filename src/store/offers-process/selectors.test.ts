@@ -12,7 +12,7 @@ describe('Test offers selectors', () => {
       favoriteOffers: Array(6).fill('').map(() => makeFakeCommonOffer()),
       isLoading: datatype.boolean(),
       nearbyOffers: Array(6).fill('').map(() => makeFakeCommonOffer()),
-      offers: Array(6).fill('').map(() => makeFakeCommonOffer()),
+      offers: [makeFakeCommonOffer()],
       sortingVariant: makeFakeSortingVariant(),
       offer: makeFakeOffer()
     }
