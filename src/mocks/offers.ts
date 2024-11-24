@@ -1,97 +1,50 @@
-import { City } from '../constants/cities';
-import { CommonOffer, PlaceType } from '../types/offer.types';
+import { CommonOffer, Offer, PlaceType } from '../types/offer.types';
+import { makeFakeCity, makeFakeLocation } from './cities';
+import {finance, datatype } from 'faker';
+import { makeFakeImageWithoutSizes, makeFakePreviewImageWithSize } from './images';
+import { SortingVariant } from '../constants/sorting-variants';
+import { makeFakeUser } from './users';
 
-export const offers: CommonOffer[] = [
-  {
-    'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
-    'title': 'Beautiful & luxurious studio at great location',
-    'type': PlaceType.Apartment,
-    'price': 120,
-    'city': {
-      'name': City.Amsterdam,
-      'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
-        'zoom': 8
-      }
-    },
-    'location': {
-      'latitude': 52.3909553943508,
-      'longitude': 4.85309666406198,
-      'zoom': 8
-    },
-    'isFavorite': false,
-    'isPremium': false,
-    'rating': 4,
-    'previewImage': 'img/room.jpg'
-  },
-  {
-    'id': '2',
-    'title': 'Beautiful & luxurious studio at great location',
-    'type': PlaceType.House,
-    'price': 333,
-    'city': {
-      'name': City.Amsterdam,
-      'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
-        'zoom': 8
-      }
-    },
-    'location': {
-      'latitude': 52.3609553943508,
-      'longitude': 4.85309666406198,
-      'zoom': 8
-    },
-    'isFavorite': true,
-    'isPremium': true,
-    'rating': 2,
-    'previewImage': 'img/room.jpg'
-  },
-  {
-    'id': '3',
-    'title': 'Beautiful & luxurious studio at great location',
-    'type': PlaceType.Room,
-    'price': 999,
-    'city': {
-      'name': City.Paris,
-      'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
-        'zoom': 8
-      }
-    },
-    'location': {
-      'latitude': 52.3909553943508,
-      'longitude': 4.929309666406198,
-      'zoom': 8
-    },
-    'isFavorite': true,
-    'isPremium': false,
-    'rating': 1,
-    'previewImage': 'img/room.jpg'
-  },
-  {
-    'id': '4',
-    'title': 'Beautiful & luxurious studio at great location',
-    'type': PlaceType.House,
-    'price': 123,
-    'city': {
-      'name': City.Paris,
-      'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
-        'zoom': 8
-      }
-    },
-    'location': {
-      'latitude': 52.3809553943508,
-      'longitude': 4.939309666406198,
-      'zoom': 8
-    },
-    'isFavorite': false,
-    'isPremium': true,
-    'rating': 0,
-    'previewImage': 'img/room.jpg'
-  }
-];
+export const makeFakeOfferType = () => {
+  const randomIndex = Math.floor(Math.random() * Object.values(PlaceType).length);
+  const randomPlaceType = Object.values(PlaceType).find((_placeType, index) => (index === randomIndex)) ?? PlaceType.Apartment;
+  return randomPlaceType;
+};
+
+export const makeFakeSortingVariant = ():SortingVariant => {
+  const randomIndex = Math.floor(Math.random() * Object.values(SortingVariant).length);
+  const randomSortingVariant = Object.values(SortingVariant)[randomIndex] ?? SortingVariant.Popular;
+  return randomSortingVariant;
+};
+
+export const makeFakeCommonOffer = (offer?: CommonOffer | Offer):CommonOffer => ({
+  id: offer?.id ?? String(datatype.uuid()),
+  city: offer?.city ?? makeFakeCity(),
+  isFavorite: offer?.isFavorite ?? datatype.boolean(),
+  isPremium: offer?.isPremium ?? datatype.boolean(),
+  location: offer?.location ?? makeFakeLocation(),
+  previewImage: offer?.previewImage ?? makeFakePreviewImageWithSize(),
+  price: offer?.price ?? +finance.amount(),
+  rating: offer?.rating ?? datatype.number({ min: 1, max: 5 }),
+  title: offer?.title ?? datatype.string(),
+  type: offer?.type ?? makeFakeOfferType()
+});
+
+export const makeFakeOffer = ():Offer => ({
+  id: String(datatype.uuid()),
+  city: makeFakeCity(),
+  isFavorite: datatype.boolean(),
+  isPremium: datatype.boolean(),
+  location: makeFakeLocation(),
+  previewImage: makeFakePreviewImageWithSize(),
+  price: +finance.amount(),
+  rating: datatype.number({ min: 1, max: 5 }),
+  title: datatype.string(),
+  type: makeFakeOfferType(),
+  bedrooms: datatype.number({ min: 0 }),
+  description: datatype.string(),
+  goods: datatype.array(7).map((el) => String(el)),
+  maxAdults: datatype.number({ min: 0 }),
+  host: makeFakeUser(),
+  images: datatype.array(7).map(() => String(makeFakeImageWithoutSizes()))
+});

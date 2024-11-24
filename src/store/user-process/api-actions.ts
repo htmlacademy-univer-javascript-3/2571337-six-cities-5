@@ -24,7 +24,7 @@ export const checkAuth = createAsyncThunk<void, undefined,
       setToken(user.data.token);
       dispatch(setAuthorizationStatus(AuthStatus.Authorized));
       dispatch(setUser(user.data));
-      dispatch(fetchFavoriteOffers());
+      await dispatch(fetchFavoriteOffers());
     } catch {
       dispatch(setAuthorizationStatus(AuthStatus.Unauthorized));
       dispatch(redirectToRoute(AppRoute.Login));
@@ -46,8 +46,8 @@ export const login = createAsyncThunk<void, AuthCredentials,
       setToken(user.data.token);
       dispatch(setAuthorizationStatus(AuthStatus.Authorized));
       dispatch(setUser(user.data));
-      dispatch(fetchFavoriteOffers());
-      dispatch(fetchOffers());
+      await dispatch(fetchFavoriteOffers());
+      await dispatch(fetchOffers());
       dispatch(redirectToRoute(AppRoute.Main));
     } catch {
       dispatch(setAuthorizationStatus(AuthStatus.Unauthorized));
@@ -69,7 +69,7 @@ export const logout = createAsyncThunk<void, undefined,
       dropToken();
       dispatch(setUser(null));
       dispatch(setAuthorizationStatus(AuthStatus.Unauthorized));
-      dispatch(fetchOffers());
+      await dispatch(fetchOffers());
     } catch {
       dispatch(setAuthorizationStatus(AuthStatus.Authorized));
     }

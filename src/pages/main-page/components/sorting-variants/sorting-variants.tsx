@@ -5,7 +5,7 @@ import { selectSortingVariant } from '../../../../store/offers-process/selectors
 
 const SortingVariants = () => {
   const [expanded, setExpanded] = useState(false);
-  const {sortingVariant} = useAppSelector(selectSortingVariant);
+  const sortingVariant = useAppSelector(selectSortingVariant);
 
   const toggleExpanded = () => setExpanded((prev) => !prev);
 

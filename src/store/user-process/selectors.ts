@@ -1,4 +1,4 @@
 import { TState } from '../../types/state.types';
 
-export const selectAuthStatus = (state: TState) => ({authStatus: state.user.authorizationStatus});
-export const selectUserEmail = (state: TState) => ({ email: state.user.user?.email });
+export const selectAuthStatus = (state: Pick<TState, 'user'>) => (state.user.authorizationStatus);
+export const selectUserEmail = (state: Pick<TState, 'user'>) => (state.user.user?.email);

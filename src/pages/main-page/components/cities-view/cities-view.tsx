@@ -12,8 +12,8 @@ export const CitiesView = () => {
   const { activeOffer, onActiveOfferHandler } = useActiveOffer();
 
   const { filteredOffers } = useAppSelector(selectFilteredByCityOffers);
-  const {cityName} = useAppSelector(selectCityName);
-  const {isLoading} = useAppSelector(selectIsLoading);
+  const cityName = useAppSelector(selectCityName);
+  const isLoading = useAppSelector(selectIsLoading);
 
   return (
     <Suspense isLoading={isLoading}>

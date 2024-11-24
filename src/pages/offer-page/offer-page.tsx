@@ -29,9 +29,9 @@ export function OfferPage():JSX.Element {
   const {offerId} = useParams();
 
   const dispatch = useAppDispatch();
-  const { authStatus } = useAppSelector(selectAuthStatus);
-  const { nearbyOffers } = useAppSelector(selectNearbyOffers);
-  const { offer } = useAppSelector(selectOffer);
+  const authStatus = useAppSelector(selectAuthStatus);
+  const nearbyOffers = useAppSelector(selectNearbyOffers);
+  const offer = useAppSelector(selectOffer);
   const { commentsLength, filteredComments } = useAppSelector(selectFilteredComments);
 
   const nearbyOffersOnMap = useMemo(

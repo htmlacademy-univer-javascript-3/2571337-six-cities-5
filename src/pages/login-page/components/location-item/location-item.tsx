@@ -16,7 +16,7 @@ export const LocationItem = () => {
   return (
     <div className="locations__item">
       <Link onClick={onClickLocationItem} className="locations__item-link" to={AppRoute.Main}>
-        <span>{randomCity}</span>
+        <span data-testid="randomCityElement">{randomCity}</span>
       </Link>
     </div>
   );

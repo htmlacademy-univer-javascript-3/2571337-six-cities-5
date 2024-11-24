@@ -37,7 +37,7 @@ export function LoginPage(): JSX.Element {
           </div>
         </div>
       </header>
-      <main className="page__main page__main--login">
+      <main data-testid="loginPage__mainElement" className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
@@ -49,6 +49,7 @@ export function LoginPage(): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
+                  data-testid="emailElement"
                   required
                 />
               </div>
@@ -59,6 +60,7 @@ export function LoginPage(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  data-testid="passwordElement"
                   required
                 />
               </div>

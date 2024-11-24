@@ -11,7 +11,7 @@ type VariantsListProps = {
 }
 export const VariantsList = ({ expanded, toggleExpanded }: VariantsListProps) => {
   const dispatch = useAppDispatch();
-  const {sortingVariant} = useAppSelector(selectSortingVariant);
+  const sortingVariant = useAppSelector(selectSortingVariant);
 
   const onChangeSortingVariant = (newSortingVariant: SortingVariant) => {
     dispatch(changeSortingVariant(newSortingVariant));

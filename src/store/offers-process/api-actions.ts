@@ -3,6 +3,8 @@ import { TAppDispatch, TState } from '../../types/state.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { CommonOffer, Offer, SetFavoriteOfferStatusParams } from '../../types/offer.types';
 import { APIRoute } from '../../constants/api';
+import { redirectToRoute } from '../action';
+import { AppRoute } from '../../constants/routes';
 
 export const fetchOffers = createAsyncThunk<CommonOffer[], undefined,
     {
@@ -18,7 +20,7 @@ export const fetchOffers = createAsyncThunk<CommonOffer[], undefined,
   }
 );
 
-export const fetchOffer = createAsyncThunk<Offer, string,
+export const fetchOffer = createAsyncThunk<Offer | null, string,
 {
     state: TState;
     dispatch: TAppDispatch;
@@ -26,9 +28,14 @@ export const fetchOffer = createAsyncThunk<Offer, string,
 }
 >(
   'offers/fetchOffer',
-  async (offerId, { extra: api }) => {
-    const {data: offer} = await api.get<Offer>(`${APIRoute.Offers}${offerId}/`);
-    return offer;
+  async (offerId, { extra: api, dispatch }) => {
+    try {
+      const {data: offer} = await api.get<Offer>(`${APIRoute.Offers}${offerId}/`);
+      return offer;
+    } catch {
+      dispatch(redirectToRoute(AppRoute.NotFound));
+      return null;
+    }
   }
 );
 
@@ -56,7 +63,7 @@ export const setFavoriteOfferStatus = createAsyncThunk<Offer, SetFavoriteOfferSt
   'offers/setFavoriteOfferStatus',
   async ({ offerId, status }, { dispatch, extra: api }) => {
     const offer = await api.post<Offer>(`${APIRoute.Favorite}${offerId}/${status}/`);
-    dispatch(fetchFavoriteOffers());
+    await dispatch(fetchFavoriteOffers());
     return offer.data;
   }
 );

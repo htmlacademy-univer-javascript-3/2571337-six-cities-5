@@ -1,15 +1,13 @@
 import { TComment } from '../types/comment.types';
+import { datatype, date } from 'faker';
+import { makeFakeCommentUser } from './users';
 
-export const comments: TComment[] = [
-  {
-    'id': 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62a',
-    'date': '2019-05-08T14:13:56.569Z',
-    'user': {
-      'name': 'Oliver Conner',
-      'avatarUrl': 'https://url-to-image/image.png',
-      'isPro': false
-    },
-    'comment': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    'rating': 4
-  }
-];
+export function makeFakeComment():TComment {
+  return {
+    comment: datatype.string(),
+    date: String(date.soon()),
+    id: datatype.uuid(),
+    rating: datatype.number({ min:1, max: 5 }),
+    user: makeFakeCommentUser()
+  };
+}

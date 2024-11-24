@@ -27,8 +27,8 @@ type ReviewFormProps = {
 
 export const ReviewForm = ({ offerId }: ReviewFormProps) => {
   const [reviewsFormValues, setReviewsFormValues] = useState(initialReviewsFormValues);
-  const { isLoading } = useAppSelector(selectLoadingState);
-  const { errorMessage } = useAppSelector(selectError);
+  const isLoading = useAppSelector(selectLoadingState);
+  const errorMessage = useAppSelector(selectError);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

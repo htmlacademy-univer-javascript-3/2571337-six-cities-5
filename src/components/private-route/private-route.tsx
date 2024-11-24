@@ -15,6 +15,6 @@ export function PrivateRoute({
   needAuthStatus = AuthStatus.Authorized,
   to = AppRoute.Login
 }: PrivateRouteProps){
-  const {authStatus} = useAppSelector(selectAuthStatus);
+  const authStatus = useAppSelector(selectAuthStatus);
   return authStatus === needAuthStatus ? children : <Navigate to={to}/>;
 }

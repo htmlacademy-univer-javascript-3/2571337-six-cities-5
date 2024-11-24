@@ -9,9 +9,9 @@ import { logout } from '../../store/user-process/api-actions';
 import { selectFavoriteOffers } from '../../store/offers-process/selectors';
 
 export const Header = () => {
-  const {authStatus} = useAppSelector(selectAuthStatus);
-  const { email } = useAppSelector(selectUserEmail);
-  const { favoriteOffers } = useAppSelector(selectFavoriteOffers);
+  const authStatus = useAppSelector(selectAuthStatus);
+  const email = useAppSelector(selectUserEmail);
+  const favoriteOffers = useAppSelector(selectFavoriteOffers);
   const dispatch = useAppDispatch();
 
   const logOutHandler = () => {

@@ -8,7 +8,7 @@ import cn from 'classnames';
 import { StubEmptyFavoritesView } from './components/stub-empty-favorites-view';
 
 export function FavoritesPage(): JSX.Element {
-  const { favoriteOffers: offers } = useAppSelector(selectFavoriteOffers);
+  const offers = useAppSelector(selectFavoriteOffers);
 
   const citiesOffers = useMemo(() => {
     const map = new Map<string, CommonOffer[]>();

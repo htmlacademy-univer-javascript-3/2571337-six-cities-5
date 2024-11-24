@@ -35,7 +35,7 @@ interface OfferCardProps {
 
 const OfferCard = ({ offer, imageSize, block, onMouseEnterHandler, onMouseLeaveHandler }: OfferCardProps) => {
   const dispatch = useAppDispatch();
-  const { authStatus } = useAppSelector(selectAuthStatus);
+  const authStatus = useAppSelector(selectAuthStatus);
   const { isPremium, previewImage, price, rating, isFavorite, title, type, id } = offer;
 
   const onClickToBookmark = () => {

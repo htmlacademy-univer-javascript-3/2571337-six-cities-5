@@ -2,7 +2,7 @@ import { useAppSelector } from '../../../../store/hooks';
 import { selectCityName } from '../../../../store/offers-process/selectors';
 
 export const StubEmptyCitiesView = () => {
-  const { cityName } = useAppSelector(selectCityName);
+  const cityName = useAppSelector(selectCityName);
   return (
     <section className="cities__no-places">
       <div className="cities__status-wrapper tabs__content">

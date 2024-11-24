@@ -12,7 +12,7 @@ type LocationItemProps = {
 }
 
 export const LocationItem = ({ city, onClick }: LocationItemProps) => {
-  const {cityName} = useAppSelector(selectCityName);
+  const cityName = useAppSelector(selectCityName);
 
   return (
     <li className="locations__item">
