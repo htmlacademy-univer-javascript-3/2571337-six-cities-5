@@ -39,6 +39,6 @@ describe('Test comments selectors', () => {
 
     const result = selectFilteredComments(state);
 
-    expect(result).toEqual({ commentsLength: state.comments.comments.length, filteredComments: state.comments.comments.toSorted((prev, next) => Number(new Date(next.date)) - Number(new Date(prev.date))).slice(0, MAX_COMMENTS_ON_PAGE) });
+    expect(result).toEqual({ commentsLength: state.comments.comments.length, filteredComments: state.comments.comments.slice().sort((prev, next) => Number(new Date(next.date)) - Number(new Date(prev.date))).slice(0, MAX_COMMENTS_ON_PAGE) });
   });
 });
