@@ -2,6 +2,10 @@ import { createAction } from '@reduxjs/toolkit';
 import { City } from '../constants/cities';
 import { SortingVariant } from '../constants/sorting-variants';
 
-export const changeCityName = createAction<City>('cityOffers/changeCityName');
-export const fillOffers = createAction('cityOffers/fillOffers');
-export const changeSortingVariant = createAction<SortingVariant>('cityOffers/changeSortingVariant');
+
+import { CommonOffer } from '../types/offer.types';
+
+export const changeCityName = createAction<City>('offers/changeCityName');
+export const fillOffers = createAction<CommonOffer[]>('offers/fillOffers');
+export const changeSortingVariant = createAction<SortingVariant>('offers/changeSortingVariant');
+export const setIsLoading = createAction<boolean>('offers/setIsLoading');
