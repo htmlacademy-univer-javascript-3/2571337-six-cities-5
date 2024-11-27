@@ -23,6 +23,7 @@ export const ButtonToBookmark = ({ block, size, isFavorite, onClick }: ButtonToB
     className={cn('button', `${block}-button`, {[`${block}-button--active`]: isFavorite})}
     type="button"
     onClick={onClick}
+    data-testid="buttonToBookmark"
   >
     <svg
       className={cn(`${block}-icon`)}

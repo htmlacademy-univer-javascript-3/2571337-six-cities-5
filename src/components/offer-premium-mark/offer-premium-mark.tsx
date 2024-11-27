@@ -4,7 +4,7 @@ type OfferPremiumMarkProps = {
 }
 export const OfferPremiumMark = ({ isPremium, className }: OfferPremiumMarkProps) => !isPremium ? null
   : (
-    <div className={className}>
+    <div data-testid="offerPremiumMarkContainer" className={className}>
       <span>Premium</span>
     </div>
   );

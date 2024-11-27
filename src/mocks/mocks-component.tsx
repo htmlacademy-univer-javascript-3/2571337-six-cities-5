@@ -18,7 +18,7 @@ export function withHistory(component: JSX.Element, history?: MemoryHistory) {
 
 type ComponentWithStore = {
   componentWithStore: JSX.Element;
-  mockStore: MockStore;
+  mockStore: MockStore<TState>;
   mockAxiosAdapter: MockAdapter;
 }
 

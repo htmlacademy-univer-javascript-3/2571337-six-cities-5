@@ -51,6 +51,7 @@ const OfferCard = ({ offer, imageSize, block, onMouseEnterHandler, onMouseLeaveH
 
   return (
     <article
+      data-testid="articleOfferCard"
       className={`${block}__card place-card`}
       onMouseEnter={() => onMouseEnterHandler?.({ idOffer: id })}
       onMouseLeave={onMouseLeaveHandler}

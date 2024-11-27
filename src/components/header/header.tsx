@@ -48,7 +48,7 @@ export const Header = () => {
                     <span className="header__user-name user__name">
                       { email }
                     </span>
-                    <span className="header__favorite-count">{favoriteOffers.length}</span>
+                    <span data-testid="favoriteOffersLength" className="header__favorite-count">{favoriteOffers.length}</span>
                   </Link>
                 </li>
               }
@@ -56,6 +56,7 @@ export const Header = () => {
                 {
                   authStatus === AuthStatus.Authorized ?
                     <button
+                      data-testid="buttonLogout"
                       onClick={logOutHandler}
                       className={cn('header__nav-link', css.button)}
                     >
