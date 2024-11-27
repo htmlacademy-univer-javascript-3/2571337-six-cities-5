@@ -5,5 +5,13 @@ export type TComment = {
     date: string;
     user: Omit<TUser, 'email' | 'token'>;
     comment: string;
-    rating: 1 | 2 | 3 | 4 | 5;
+    rating: number;
+}
+
+export type AddCommentParams = {
+    commentData: {
+        comment: string;
+        rating: number;
+    };
+    offerId: string;
 }

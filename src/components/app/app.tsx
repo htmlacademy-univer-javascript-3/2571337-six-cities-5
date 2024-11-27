@@ -8,23 +8,19 @@ import { NotFoundPage } from '../../pages/not-found-page';
 import { PrivateRoute } from '../private-route/private-route';
 import { AppRoute } from '../../constants/routes';
 import { CommonOffer } from '../../types/offer.types';
-import { TCity } from '../../types/city.types';
-import { TComment } from '../../types/comment.types';
 import { HistoryRouter } from '../history-route/history-route';
 import { browserHistory } from '../../browser-history';
 import { AuthStatus } from '../../constants/user';
 
 interface AppProps {
     offers: CommonOffer[];
-    city: TCity;
-    comments: TComment[];
 }
 
-export function App({ offers, city, comments }: AppProps):JSX.Element {
+export function App({ offers }: AppProps):JSX.Element {
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage city={city} />}/>
+        <Route path={AppRoute.Main} element={<MainPage />}/>
         <Route path={AppRoute.Login} element={<PrivateRoute needAuthStatus={AuthStatus.Unauthorized} to={AppRoute.Main}><LoginPage/></PrivateRoute>}/>
         <Route
           path={AppRoute.Favorites}
@@ -34,7 +30,7 @@ export function App({ offers, city, comments }: AppProps):JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Offer} element={<OfferPage comments={comments} offers={offers}/>}/>
+        <Route path={AppRoute.Offer} element={<OfferPage/>}/>
         <Route path={AppRoute.NotFound} element={<NotFoundPage />}/>
         <Route path='*' element={<Navigate to={AppRoute.NotFound}/>}/>
       </Routes>

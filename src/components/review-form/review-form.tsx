@@ -1,6 +1,9 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { COMMENT_MAX_LENGTH, COMMENT_MIN_LENGTH } from '../../constants/review-form';
 import { toStringOrNumber } from '../../utils/to-string-or-number';
+import { useAppDispatch } from '../../store/hooks';
+import { CommonOffer } from '../../types/offer.types';
+import { addCommentFx } from '../../store/api-action';
 
 const ratesTitleMap = {
   perfect: 5,
@@ -15,8 +18,13 @@ const initialReviewsFormValues = {
   rating: 0
 };
 
-export const ReviewForm = () => {
+type ReviewFormProps = {
+  offerId: CommonOffer['id'];
+}
+
+export const ReviewForm = ({ offerId }: ReviewFormProps) => {
   const [reviewsFormValues, setReviewsFormValues] = useState(initialReviewsFormValues);
+  const dispatch = useAppDispatch();
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const key = e.target.name;
@@ -27,10 +35,16 @@ export const ReviewForm = () => {
     }));
   };
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(addCommentFx({ offerId, commentData: reviewsFormValues }));
+    setReviewsFormValues(initialReviewsFormValues);
+  };
+
   const isValid = reviewsFormValues.comment.length >= COMMENT_MIN_LENGTH && reviewsFormValues.comment.length <= COMMENT_MAX_LENGTH && reviewsFormValues.rating > 0;
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" onSubmit={onSubmit} method="post">
       <label className="reviews__label form__label" htmlFor="review">
     Your review
       </label>

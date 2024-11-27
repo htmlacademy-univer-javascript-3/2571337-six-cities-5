@@ -2,7 +2,6 @@ import { JSX, useMemo } from 'react';
 import { OffersList } from '../../components/offers-list';
 import { Header } from '../../components/header';
 import { Map } from '../../components/map';
-import { TCity } from '../../types/city.types';
 import { useActiveOffer } from '../../hooks/use-active-offer';
 import cn from 'classnames';
 import { City } from '../../constants/cities';
@@ -12,11 +11,7 @@ import { SortingVariants } from '../../components/sorting-variants';
 import { sortOffers } from '../../helpers/sort-offers';
 import { Suspense } from '../../components/suspense';
 
-interface MainPageProps {
-  city: TCity;
-}
-
-export function MainPage({ city }: MainPageProps):JSX.Element {
+export function MainPage():JSX.Element {
   const { activeOffer, onActiveOfferHandler } = useActiveOffer();
   const {
     cityName,
@@ -56,7 +51,7 @@ export function MainPage({ city }: MainPageProps):JSX.Element {
                 />
               </section>
               <div className="cities__right-section">
-                <Map className='cities__map' city={city} offers={curentOffers} activeOffer={activeOffer}/>
+                <Map key={cityName} className='cities__map' city={curentOffers?.[0]?.city} offers={curentOffers} activeOffer={activeOffer}/>
               </div>
             </div>
           </Suspense>

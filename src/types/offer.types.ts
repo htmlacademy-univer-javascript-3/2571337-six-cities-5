@@ -9,7 +9,7 @@ export enum PlaceType {
     Hotel = 'hotel'
 }
 
-type Rate = 0 | 1 | 2 | 3 | 4 | 5;
+type Rate = number;
 
 export type CommonOffer = {
     id: string;
