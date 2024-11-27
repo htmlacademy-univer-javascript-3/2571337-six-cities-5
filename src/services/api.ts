@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_TIMEOUT, BASE_SERVER_URL } from '../constants/api';
+import { getToken } from './token';
 
 export const createApi = () => {
   const api = axios.create({
@@ -9,9 +10,10 @@ export const createApi = () => {
 
   api.interceptors.request.use((config) => {
     if (config.headers) {
-      config.headers['x-token'] = 'token';
+      config.headers['x-token'] = getToken();
     }
     return config;
   });
+
   return api;
 };

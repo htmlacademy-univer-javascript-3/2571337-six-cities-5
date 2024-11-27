@@ -1,7 +1,22 @@
-import { JSX } from 'react';
+import { FormEvent, JSX, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../store/hooks';
+import { login } from '../../store/api-action';
+import { AuthCredentials } from '../../types/user.types';
 
 export function LoginPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (formRef.current) {
+      const dataForm = new FormData(formRef.current);
+      const credentials = Object.fromEntries(dataForm) as AuthCredentials;
+      dispatch(login(credentials));
+    }
+  };
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -25,7 +40,7 @@ export function LoginPage(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form ref={formRef} className="login__form form" onSubmit={onSubmit} method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
