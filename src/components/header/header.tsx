@@ -49,6 +49,9 @@ export const Header = () => {
                       { email }
                     </span>
                     <span data-testid="favoriteOffersLength" className="header__favorite-count">{favoriteOffers.length}</span>
+                Oliver.conner@gmail.com
+                    </span>
+                    <span className="header__favorite-count">3</span>
                   </Link>
                 </li>
               }

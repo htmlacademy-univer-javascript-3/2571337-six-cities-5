@@ -7,6 +7,7 @@ import { OfferPage } from '../../pages/offer-page';
 import { NotFoundPage } from '../../pages/not-found-page';
 import { PrivateRoute } from '../private-route/private-route';
 import { AppRoute } from '../../constants/routes';
+
 import { AuthStatus } from '../../constants/user';
 import { MainLayout } from '../../layouts/main-layout';
 

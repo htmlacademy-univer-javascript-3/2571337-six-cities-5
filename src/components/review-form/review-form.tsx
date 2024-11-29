@@ -56,7 +56,6 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addCommentFx({ offerId, commentData: reviewsFormValues }));
-
   };
 
   const isValid = reviewsFormValues.comment.length >= COMMENT_MIN_LENGTH && reviewsFormValues.comment.length <= COMMENT_MAX_LENGTH && reviewsFormValues.rating > 0;
