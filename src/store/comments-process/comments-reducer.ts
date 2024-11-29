@@ -33,6 +33,7 @@ const commentsSlice = createSlice({
       .addCase(addCommentFx.fulfilled, (state, { payload: comment }) => {
         state.comments.push(comment);
         state.isLoading = false;
+        state.errorMessage = null;
       })
       .addCase(addCommentFx.rejected, (state, { error }) => {
         state.isLoading = false;

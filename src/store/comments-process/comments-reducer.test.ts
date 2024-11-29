@@ -87,7 +87,7 @@ describe('Test Comments Slice', () => {
     const expectedState = {
       comments: [comment],
       isLoading: false,
-      errorMessage: 'some message'
+      errorMessage: null
     };
 
     const result = commentsReducer(initialState, addCommentFx.fulfilled(comment, '', {} as AddCommentParams));

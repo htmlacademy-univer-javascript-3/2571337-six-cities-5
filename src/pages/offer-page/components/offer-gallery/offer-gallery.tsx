@@ -5,7 +5,7 @@ type OfferGalleryProps = {
 }
 export const OfferGallery = ({ images }: OfferGalleryProps) => (
   <div className="offer__gallery-container container">
-    <div className="offer__gallery">
+    <div data-testid="galleryContainer" className="offer__gallery">
       {
         images.slice(0, OFFER_IMAGES_MAX_COUNT).map((imageSrc) => (
           <div className="offer__image-wrapper" key={imageSrc}>

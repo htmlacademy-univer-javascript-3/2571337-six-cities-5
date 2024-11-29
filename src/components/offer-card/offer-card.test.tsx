@@ -19,7 +19,7 @@ const mockOnMouseLeaveHandler = vi.fn();
 
 
 describe('Component: OfferCard', () => {
-  const locationsListProps: {
+  const offerCardProps: {
     offer: CommonOffer;
     imageSize: 'small' | 'large';
     block: string;
@@ -54,9 +54,9 @@ describe('Component: OfferCard', () => {
 
   it('should render correctly', () => {
     const articleOfferCardTestId = 'articleOfferCard';
-    const expectedTitleOfferCard = locationsListProps.offer.title;
-    const expectedType = new RegExp(`${locationsListProps.offer.type}`, 'i');
-    const componentWithHistory = withHistory(<OfferCard {...locationsListProps}/>);
+    const expectedTitleOfferCard = offerCardProps.offer.title;
+    const expectedType = new RegExp(`${offerCardProps.offer.type}`, 'i');
+    const componentWithHistory = withHistory(<OfferCard {...offerCardProps}/>);
     const { componentWithStore: prepandedComponent} = withStore(componentWithHistory, initialState);
 
     render(prepandedComponent);
@@ -68,9 +68,9 @@ describe('Component: OfferCard', () => {
 
   it('should onMouseEnterHandler called once', () => {
     const articleOfferCardTestId = 'articleOfferCard';
-    const componentWithHistory = withHistory(<OfferCard {...locationsListProps}/>);
+    const componentWithHistory = withHistory(<OfferCard {...offerCardProps}/>);
     const { componentWithStore: prepandedComponent} = withStore(componentWithHistory, initialState);
-    vi.spyOn(locationsListProps, 'onMouseEnterHandler');
+    vi.spyOn(offerCardProps, 'onMouseEnterHandler');
 
     render(prepandedComponent);
     fireEvent.mouseEnter(screen.getByTestId(articleOfferCardTestId));
@@ -80,9 +80,9 @@ describe('Component: OfferCard', () => {
 
   it('should onMouseLeaveHandler called once', () => {
     const articleOfferCardTestId = 'articleOfferCard';
-    const componentWithHistory = withHistory(<OfferCard {...locationsListProps}/>);
+    const componentWithHistory = withHistory(<OfferCard {...offerCardProps}/>);
     const { componentWithStore: prepandedComponent} = withStore(componentWithHistory, initialState);
-    vi.spyOn(locationsListProps, 'onMouseLeaveHandler');
+    vi.spyOn(offerCardProps, 'onMouseLeaveHandler');
 
     render(prepandedComponent);
     fireEvent.mouseLeave(screen.getByTestId(articleOfferCardTestId));
@@ -92,9 +92,9 @@ describe('Component: OfferCard', () => {
 
   it('should dispatch "setFavoriteOfferStatus.pending" "fetchFavoriteOffers.pending.type" "fetchFavoriteOffers.fulfilled" "setFavoriteOfferStatus.fulfilled" with authorized user', async () => {
     const buttonToBookmarkTestId = 'buttonToBookmark';
-    const componentWithHistory = withHistory(<OfferCard {...locationsListProps}/>);
+    const componentWithHistory = withHistory(<OfferCard {...offerCardProps}/>);
     const { componentWithStore: prepandedComponent, mockStore, mockAxiosAdapter} = withStore(componentWithHistory, initialState);
-    mockAxiosAdapter.onPost(`${APIRoute.Favorite}${locationsListProps.offer.id}/${locationsListProps.offer.isFavorite ? FavoriteOfferStatus.NotFavorite : FavoriteOfferStatus.Favorite}/`).reply(201);
+    mockAxiosAdapter.onPost(`${APIRoute.Favorite}${offerCardProps.offer.id}/${offerCardProps.offer.isFavorite ? FavoriteOfferStatus.NotFavorite : FavoriteOfferStatus.Favorite}/`).reply(201);
     mockAxiosAdapter.onGet(`${APIRoute.Favorite}`).reply(200);
     const expectedActions = [setFavoriteOfferStatus.pending.type, fetchFavoriteOffers.pending.type, fetchFavoriteOffers.fulfilled.type, setFavoriteOfferStatus.fulfilled.type];
 
@@ -107,7 +107,7 @@ describe('Component: OfferCard', () => {
 
   it('should dispatch "redirectToRoute" with unauthorized user', async () => {
     const buttonToBookmarkTestId = 'buttonToBookmark';
-    const componentWithHistory = withHistory(<OfferCard {...locationsListProps}/>);
+    const componentWithHistory = withHistory(<OfferCard {...offerCardProps}/>);
     const { componentWithStore: prepandedComponent, mockStore} = withStore(componentWithHistory, {...initialState, user: {...initialState.user!, authorizationStatus: AuthStatus.Unauthorized}});
     const expectedActions = [redirectToRoute.type];
 

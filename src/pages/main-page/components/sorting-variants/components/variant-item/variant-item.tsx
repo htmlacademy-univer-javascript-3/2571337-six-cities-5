@@ -9,6 +9,7 @@ type VariantItemProps = {
 
 export const VariantItem = ({ onChangeSortingVariant, sortingVariant, sortingVariantItem }: VariantItemProps) => (
   <li
+    data-testid="variantItemElement"
     onClick={() => onChangeSortingVariant(sortingVariantItem)}
     className={cn('places__option', { 'places__option--active': sortingVariantItem === sortingVariant })}
     tabIndex={0}

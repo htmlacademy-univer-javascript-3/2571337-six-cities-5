@@ -18,7 +18,7 @@ export const CitiesView = () => {
   return (
     <Suspense isLoading={isLoading}>
       <div className="cities">
-        <div className={cn('cities__places-container','container', { 'cities__places-container--empty': filteredOffers.length === 0 })}>
+        <div data-testid="citiesPlacesContainer" className={cn('cities__places-container','container', { 'cities__places-container--empty': filteredOffers.length === 0 })}>
           {
             filteredOffers.length === 0
               ? <StubEmptyCitiesView />

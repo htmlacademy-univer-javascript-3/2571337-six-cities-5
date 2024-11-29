@@ -38,7 +38,6 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
   useEffect(() => {
     if (!isLoading && !errorMessage) {
       setReviewsFormValues(initialReviewsFormValues);
-      dispatch(clearError());
     }
     if (!isLoading && errorMessage) {
       showErrorMessage(errorMessage);
@@ -71,6 +70,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
         { Object.entries(ratesTitleMap).map(([title, rate]) => (
           <Fragment key={rate}>
             <input
+              data-testid={`ratingInput__${rate}`}
               className="form__rating-input visually-hidden"
               name="rating"
               onChange={onChangeHandler}
@@ -93,6 +93,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
         ))}
       </div>
       <textarea
+        data-testid="commentInput"
         className="reviews__textarea form__textarea"
         id="review"
         name="comment"
@@ -108,6 +109,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
       at least <b className="reviews__text-amount">{COMMENT_MIN_LENGTH} characters</b>.
         </p>
         <button
+          data-testid="submitReview"
           className="reviews__submit form__submit button"
           type="submit"
           disabled={!isValid || isLoading}

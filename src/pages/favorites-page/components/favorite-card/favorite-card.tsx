@@ -15,7 +15,7 @@ export const FavoriteCard = ({ cityName, offersInCity }: FavoriteCardProps) => (
         </Link>
       </div>
     </div>
-    <div className="favorites__places">
+    <div data-testid="favoriteCardContainer" className="favorites__places">
       { offersInCity.map((offer) => <OfferCard offer={offer} key={offer.id} block='favorites' imageSize='small'/>) }
     </div>
   </li>

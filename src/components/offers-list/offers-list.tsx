@@ -22,7 +22,7 @@ const OffersList = (props: OffersListProps) => {
   }, [onActiveOfferHandler]);
 
   return (
-    <div className={cn(className, 'places__list')}>
+    <div data-testid="offersListContainer" className={cn(className, 'places__list')}>
       { offers.map((offer) => (
         <OfferCard
           block={block}
