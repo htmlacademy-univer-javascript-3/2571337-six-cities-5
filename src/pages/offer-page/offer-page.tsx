@@ -4,16 +4,6 @@ import { ReviewForm } from '../../components/review-form';
 import { ReviewsList } from '../../components/reviews-list';
 import { Map } from '../../components/map';
 import { OffersList } from '../../components/offers-list';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchComments, fetchNearbyOffers, fetchOffer } from '../../store/api-action';
-import { Spinner } from '../../components/spinner';
-import { OfferGallery } from './components/offer-gallery';
-import cn from 'classnames';
-import { OfferGoods } from './components/offer-goods';
-import { OfferHost } from './components/offer-host';
-import { stringWithPluralRule } from '../../utils/string-with-plural-rule';
-import { sortByDate } from '../../utils/sort-by-date';
-import { AuthStatus } from '../../constants/user';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchNearbyOffers, fetchOffer, setFavoriteOfferStatus } from '../../store/offers-process/api-actions';
