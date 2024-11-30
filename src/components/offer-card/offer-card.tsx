@@ -49,12 +49,15 @@ const OfferCard = ({ offer, imageSize, block, onMouseEnterHandler, onMouseLeaveH
     }
   };
 
+  const handleOfferCardMouseEnter = () => onMouseEnterHandler?.({ idOffer: id });
+  const handleOfferCardMouseLeave = () => onMouseLeaveHandler?.();
+
   return (
     <article
       data-testid="articleOfferCard"
       className={`${block}__card place-card`}
-      onMouseEnter={() => onMouseEnterHandler?.({ idOffer: id })}
-      onMouseLeave={onMouseLeaveHandler}
+      onMouseEnter={handleOfferCardMouseEnter}
+      onMouseLeave={handleOfferCardMouseLeave}
     >
       <OfferPremiumMark className="place-card__mark" isPremium={isPremium} />
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>

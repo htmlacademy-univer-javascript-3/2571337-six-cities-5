@@ -12,7 +12,7 @@ import { Spinner } from '../../components/spinner';
 import { OfferGallery } from './components/offer-gallery';
 import { OfferGoods } from './components/offer-goods';
 import { OfferHost } from './components/offer-host';
-import { stringWithPluralRule } from '../../utils/string-with-plural-rule';
+import { makeStringWithPluralRule } from '../../utils/make-string-with-plural-rule';
 import { AuthStatus } from '../../constants/user';
 import { clearOffer } from '../../store/offers-process/offers-reducer';
 import { OfferPremiumMark } from '../../components/offer-premium-mark';
@@ -34,11 +34,14 @@ export function OfferPage():JSX.Element {
   const offer = useAppSelector(selectOffer);
   const { commentsLength, filteredComments } = useAppSelector(selectFilteredComments);
 
-  const nearbyOffersOnMap = useMemo(
-    () => offer
-      ? [...nearbyOffers.slice(0, MAX_NEAR_OFFERS), offer]
-      : []
-    , [nearbyOffers, offer]);
+  const {nearbyOffersList, nearbyOffersOnMap} = useMemo(
+    () => {
+      const slicedNearbyOffers = nearbyOffers.slice(0, MAX_NEAR_OFFERS);
+      return {
+        nearbyOffersList: slicedNearbyOffers,
+        nearbyOffersOnMap: offer ? [...slicedNearbyOffers, offer] : []
+      };
+    }, [nearbyOffers, offer]);
 
   const onClickToBookmark = useCallback(() => {
     if (authStatus !== AuthStatus.Authorized) {
@@ -96,10 +99,10 @@ export function OfferPage():JSX.Element {
             <ul className="offer__features">
               <li className="offer__feature offer__feature--entire">{offer.type}</li>
               <li className="offer__feature offer__feature--bedrooms">
-                {stringWithPluralRule('Bedroom', offer.bedrooms)}
+                {makeStringWithPluralRule('Bedroom', offer.bedrooms)}
               </li>
               <li className="offer__feature offer__feature--adults">
-              Max {stringWithPluralRule('adult', offer.maxAdults)}
+              Max {makeStringWithPluralRule('adult', offer.maxAdults)}
               </li>
             </ul>
             <div className="offer__price">
@@ -138,7 +141,7 @@ export function OfferPage():JSX.Element {
           <OffersList
             block='near-places'
             className='near-places__list'
-            offers={nearbyOffers}
+            offers={nearbyOffersList}
           />
         </section>
       </div>

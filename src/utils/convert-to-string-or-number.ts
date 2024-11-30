@@ -1,4 +1,4 @@
-export function toStringOrNumber<
+export function convertToStringOrNumber<
   K extends string | number,
   T extends Record<K, unknown>
 >(obj: T, key: K, value: string | number) {

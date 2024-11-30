@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { API_TIMEOUT, BASE_SERVER_URL } from '../constants/api';
 import { getToken } from './token';
-import { showErrorMessage } from '../helpers/error-message';
+import { showErrorMessage } from '../helpers/show-error-message';
 
 type DetailMessageType = {
   errorType: string;

@@ -9,7 +9,7 @@ export function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const formRef = useRef<HTMLFormElement>(null);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formRef.current) {
       const dataForm = new FormData(formRef.current);
@@ -41,7 +41,7 @@ export function LoginPage(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form ref={formRef} className="login__form form" onSubmit={onSubmit} method="post">
+            <form ref={formRef} className="login__form form" onSubmit={handleFormSubmit} method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -59,6 +59,7 @@ export function LoginPage(): JSX.Element {
                   className="login__input form__input"
                   type="password"
                   name="password"
+                  pattern="^(?=.*[a-zA-Z])(?=.*\d).+$"
                   placeholder="Password"
                   data-testid="passwordElement"
                   required

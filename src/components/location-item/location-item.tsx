@@ -14,11 +14,13 @@ type LocationItemProps = {
 export const LocationItem = ({ city, onClick }: LocationItemProps) => {
   const cityName = useAppSelector(selectCityName);
 
+  const handleLocationItemClick = () => onClick();
+
   return (
     <li className="locations__item" data-testid="locationItem">
       <Link
         data-testid="locationItem__link"
-        onClick={onClick}
+        onClick={handleLocationItemClick}
         className={cn('locations__item-link tabs__item', {'tabs__item--active': cityName === city})}
         to="#"
       >

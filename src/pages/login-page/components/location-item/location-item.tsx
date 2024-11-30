@@ -9,13 +9,13 @@ export const LocationItem = () => {
   const randomCity = Object.values(City).find((_city, index) => (index === randomIndex)) ?? City.Amsterdam;
   const dispatch = useAppDispatch();
 
-  const onClickLocationItem = () => {
+  const handleLocationItemClick = () => {
     dispatch(changeCityName(randomCity));
   };
 
   return (
     <div className="locations__item">
-      <Link onClick={onClickLocationItem} className="locations__item-link" to={AppRoute.Main}>
+      <Link onClick={handleLocationItemClick} className="locations__item-link" to={AppRoute.Main}>
         <span data-testid="randomCityElement">{randomCity}</span>
       </Link>
     </div>

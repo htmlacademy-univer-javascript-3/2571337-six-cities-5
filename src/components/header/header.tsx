@@ -14,7 +14,7 @@ export const Header = () => {
   const favoriteOffers = useAppSelector(selectFavoriteOffers);
   const dispatch = useAppDispatch();
 
-  const logOutHandler = () => {
+  const handleLogoutClick = () => {
     if (authStatus === AuthStatus.Authorized) {
       dispatch(logout());
     }
@@ -57,7 +57,7 @@ export const Header = () => {
                   authStatus === AuthStatus.Authorized ?
                     <button
                       data-testid="buttonLogout"
-                      onClick={logOutHandler}
+                      onClick={handleLogoutClick}
                       className={cn('header__nav-link', css.button)}
                     >
                       <span

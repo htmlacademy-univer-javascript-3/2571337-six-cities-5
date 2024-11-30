@@ -18,19 +18,22 @@ type ButtonToBookmarkProps = {
     onClick: () => void;
 }
 
-export const ButtonToBookmark = ({ block, size, isFavorite, onClick }: ButtonToBookmarkProps) => (
-  <button
-    className={cn('button', `${block}-button`, {[`${block}-button--active`]: isFavorite})}
-    type="button"
-    onClick={onClick}
-    data-testid="buttonToBookmark"
-  >
-    <svg
-      className={cn(`${block}-icon`)}
-      {...SvgSize[size]}
+export const ButtonToBookmark = ({ block, size, isFavorite, onClick }: ButtonToBookmarkProps) => {
+  const handleButtonToBookmarkClick = () => onClick();
+  return (
+    <button
+      className={cn('button', `${block}-button`, {[`${block}-button--active`]: isFavorite})}
+      type="button"
+      onClick={handleButtonToBookmarkClick}
+      data-testid="buttonToBookmark"
     >
-      <use xlinkHref="#icon-bookmark" />
-    </svg>
-    <span className="visually-hidden">To bookmarks</span>
-  </button>
-);
+      <svg
+        className={cn(`${block}-icon`)}
+        {...SvgSize[size]}
+      >
+        <use xlinkHref="#icon-bookmark" />
+      </svg>
+      <span className="visually-hidden">To bookmarks</span>
+    </button>
+  );
+};

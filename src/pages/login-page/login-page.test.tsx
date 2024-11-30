@@ -7,6 +7,7 @@ import { makeFakeUser } from '../../mocks/users';
 import { login } from '../../store/user-process/api-actions';
 import { setAuthorizationStatus } from '../../store/user-process/user-reducer';
 import { TState } from '../../types/state.types';
+import { internet } from 'faker';
 import { LoginPage } from './login-page';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -67,8 +68,8 @@ describe('Component: LoginPage', () => {
   it('should dispatch "login.pending" "setAuthorizationStatus" "login.fulfilled" when user typed email, password and submit form', async () => {
     const emailElement = 'emailElement';
     const passwordElement = 'passwordElement';
-    const typedEmailText = 'student@gmail.com';
-    const typedPasswordText = '12344321';
+    const typedEmailText = internet.email();
+    const typedPasswordText = '12aa';
     const componentWithRouting = withHistory(<LoginPage/>);
     const { componentWithStore: preparedComponent, mockAxiosAdapter, mockStore } = withStore(componentWithRouting, initialState);
     mockAxiosAdapter.onPost(APIRoute.Login).reply(201);

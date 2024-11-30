@@ -1,14 +1,14 @@
-import { stringWithPluralRule } from './string-with-plural-rule';
+import { makeStringWithPluralRule } from './make-string-with-plural-rule';
 import { datatype } from 'faker';
 
-describe('Test function: stringWithPluralRule', () => {
+describe('Test function: makeStringWithPluralRule', () => {
 
   it('should return string with plural s with arg count > 1', () => {
     const count = datatype.number({ min:2 });
     const str = 'comment';
     const expectedStr = `${count} comments`;
 
-    const result = stringWithPluralRule(str, count);
+    const result = makeStringWithPluralRule(str, count);
 
     expect(result).toBe(expectedStr);
   });
@@ -18,7 +18,7 @@ describe('Test function: stringWithPluralRule', () => {
     const str = 'comment';
     const expectedStr = `${count} comment`;
 
-    const result = stringWithPluralRule(str, count);
+    const result = makeStringWithPluralRule(str, count);
 
     expect(result).toBe(expectedStr);
   });

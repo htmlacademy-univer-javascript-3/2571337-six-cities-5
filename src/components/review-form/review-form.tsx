@@ -1,12 +1,12 @@
 import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
 import { COMMENT_MAX_LENGTH, COMMENT_MIN_LENGTH } from '../../constants/review-form';
-import { toStringOrNumber } from '../../utils/to-string-or-number';
+import { convertToStringOrNumber } from '../../utils/convert-to-string-or-number';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { CommonOffer } from '../../types/offer.types';
 import { addCommentFx } from '../../store/comments-process/api-actions';
 import { selectError, selectLoadingState } from '../../store/comments-process/selectors';
 import { clearError } from '../../store/comments-process/comments-reducer';
-import { showErrorMessage } from '../../helpers/error-message';
+import { showErrorMessage } from '../../helpers/show-error-message';
 
 const ratesTitleMap = {
   perfect: 5,
@@ -44,16 +44,16 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
     }
   }, [errorMessage, isLoading, dispatch]);
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleFormElementsChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const key = e.target.name;
     const value = e.target.value;
     setReviewsFormValues((prev) => ({
       ...prev,
-      [key]: toStringOrNumber(reviewsFormValues, key, value)
+      [key]: convertToStringOrNumber(reviewsFormValues, key, value)
     }));
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addCommentFx({ offerId, commentData: reviewsFormValues }));
   };
@@ -61,7 +61,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
   const isValid = reviewsFormValues.comment.length >= COMMENT_MIN_LENGTH && reviewsFormValues.comment.length <= COMMENT_MAX_LENGTH && reviewsFormValues.rating > 0;
 
   return (
-    <form className="reviews__form form" onSubmit={onSubmit} method="post">
+    <form className="reviews__form form" onSubmit={handleFormSubmit} method="post">
       <label className="reviews__label form__label" htmlFor="review">
     Your review
       </label>
@@ -72,7 +72,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
               data-testid={`ratingInput__${rate}`}
               className="form__rating-input visually-hidden"
               name="rating"
-              onChange={onChangeHandler}
+              onChange={handleFormElementsChange}
               value={rate}
               checked={reviewsFormValues.rating === rate}
               id={`${rate}-stars`}
@@ -96,7 +96,7 @@ export const ReviewForm = ({ offerId }: ReviewFormProps) => {
         className="reviews__textarea form__textarea"
         id="review"
         name="comment"
-        onChange={onChangeHandler}
+        onChange={handleFormElementsChange}
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewsFormValues.comment}
         disabled={isLoading}

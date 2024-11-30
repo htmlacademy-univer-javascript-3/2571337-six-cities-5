@@ -10,8 +10,16 @@ import { AppRoute } from '../../constants/routes';
 
 import { AuthStatus } from '../../constants/user';
 import { MainLayout } from '../../layouts/main-layout';
+import { useAppSelector } from '../../store/hooks';
+import { selectAuthStatus } from '../../store/user-process/selectors';
+import { Spinner } from '../spinner';
 
 export function App():JSX.Element {
+  const authStatus = useAppSelector(selectAuthStatus);
+
+  if (authStatus === AuthStatus.Unknown) {
+    return <Spinner />;
+  }
   return (
     <Routes>
       <Route

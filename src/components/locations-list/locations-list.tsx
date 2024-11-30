@@ -10,11 +10,11 @@ type LocationsListProps = {
 export const LocationsList = ({ cities }: LocationsListProps) => {
   const dispatch = useAppDispatch();
 
-  const clickCityHandler = (city: City) => dispatch(changeCityName(city));
+  const onClickCityHandler = (city: City) => dispatch(changeCityName(city));
 
   return (
     <ul className="locations__list tabs__list">
-      { cities.map((cityItem) => <LocationItem key={cityItem} onClick={() => clickCityHandler(cityItem)} city={cityItem}/>) }
+      { cities.map((cityItem) => <LocationItem key={cityItem} onClick={() => onClickCityHandler(cityItem)} city={cityItem}/>) }
     </ul>
   );
 };
