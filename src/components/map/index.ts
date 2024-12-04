@@ -1,1 +1,1 @@
-export * from './map';
+export {MemoMap as Map} from './map';

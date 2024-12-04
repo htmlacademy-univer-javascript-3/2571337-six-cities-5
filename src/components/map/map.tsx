@@ -1,17 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useMap } from '../../hooks/use-map';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { TCity } from '../../types/city.types';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../constants/map';
 import { CommonOffer, Offer } from '../../types/offer.types';
-
-type MapProps = {
-    city: TCity;
-    offers: Array<CommonOffer | Offer>;
-    activeOffer?: CommonOffer['id'] | null;
-    className: string;
-}
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -25,10 +18,15 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export function Map({ city, offers, activeOffer, className }: MapProps) {
+type MapProps = {
+    city: TCity;
+    offers: Array<CommonOffer | Offer>;
+    activeOffer?: CommonOffer['id'] | null;
+}
+
+const Map = ({ city, offers, activeOffer }: MapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap({mapRef, city});
-
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
@@ -52,6 +50,8 @@ export function Map({ city, offers, activeOffer, className }: MapProps) {
     }
   }, [map, offers, activeOffer]);
   return (
-    <section className={`${className} map`} ref={mapRef}/>
+    <div data-testid="mapElement" ref={mapRef} style={{height: '100%'}}/>
   );
-}
+};
+
+export const MemoMap = memo(Map);

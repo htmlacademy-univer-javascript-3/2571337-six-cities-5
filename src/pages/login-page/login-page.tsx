@@ -1,14 +1,15 @@
 import { FormEvent, JSX, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks';
-import { login } from '../../store/api-action';
 import { AuthCredentials } from '../../types/user.types';
+import { login } from '../../store/user-process/api-actions';
+import { LocationItem } from './components/location-item';
 
 export function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const formRef = useRef<HTMLFormElement>(null);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formRef.current) {
       const dataForm = new FormData(formRef.current);
@@ -36,11 +37,11 @@ export function LoginPage(): JSX.Element {
           </div>
         </div>
       </header>
-      <main className="page__main page__main--login">
+      <main data-testid="loginPage__mainElement" className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form ref={formRef} className="login__form form" onSubmit={onSubmit} method="post">
+            <form ref={formRef} className="login__form form" onSubmit={handleFormSubmit} method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -48,7 +49,8 @@ export function LoginPage(): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  required={false}
+                  data-testid="emailElement"
+                  required
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -57,8 +59,10 @@ export function LoginPage(): JSX.Element {
                   className="login__input form__input"
                   type="password"
                   name="password"
+                  pattern="^(?=.*[a-zA-Z])(?=.*\d).+$"
                   placeholder="Password"
-                  required={false}
+                  data-testid="passwordElement"
+                  required
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">
@@ -67,11 +71,7 @@ export function LoginPage(): JSX.Element {
             </form>
           </section>
           <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <Link className="locations__item-link" to="#">
-                <span>Amsterdam</span>
-              </Link>
-            </div>
+            <LocationItem />
           </section>
         </div>
       </main>

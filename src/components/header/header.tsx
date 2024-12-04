@@ -2,15 +2,19 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants/routes';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { AuthStatus } from '../../constants/user';
-import { logout } from '../../store/api-action';
 import css from './header.module.css';
 import cn from 'classnames';
+import { selectAuthStatus, selectUserEmail } from '../../store/user-process/selectors';
+import { logout } from '../../store/user-process/api-actions';
+import { selectFavoriteOffers } from '../../store/offers-process/selectors';
 
 export const Header = () => {
-  const authStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const authStatus = useAppSelector(selectAuthStatus);
+  const email = useAppSelector(selectUserEmail);
+  const favoriteOffers = useAppSelector(selectFavoriteOffers);
   const dispatch = useAppDispatch();
 
-  const logOutHandler = () => {
+  const handleLogoutClick = () => {
     if (authStatus === AuthStatus.Authorized) {
       dispatch(logout());
     }
@@ -42,9 +46,9 @@ export const Header = () => {
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
-                Oliver.conner@gmail.com
+                      { email }
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <span data-testid="favoriteOffersLength" className="header__favorite-count">{favoriteOffers.length}</span>
                   </Link>
                 </li>
               }
@@ -52,7 +56,8 @@ export const Header = () => {
                 {
                   authStatus === AuthStatus.Authorized ?
                     <button
-                      onClick={logOutHandler}
+                      data-testid="buttonLogout"
+                      onClick={handleLogoutClick}
                       className={cn('header__nav-link', css.button)}
                     >
                       <span

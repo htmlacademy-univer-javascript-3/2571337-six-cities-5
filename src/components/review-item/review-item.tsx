@@ -1,5 +1,6 @@
 import { TComment } from '../../types/comment.types';
 import { convertDateToString } from '../../utils/convert-date-to-string';
+import { OfferRating } from '../offer-rating';
 
 type ReviewItemProps = {
     comment: TComment;
@@ -20,16 +21,14 @@ export const ReviewItem = ({ comment }: ReviewItemProps) => (
       <span className="reviews__user-name">{comment.user.name}</span>
     </div>
     <div className="reviews__info">
-      <div className="reviews__rating rating">
-        <div className="reviews__stars rating__stars">
-          <span style={{ width: `${20 * comment.rating}%` }} />
-          <span className="visually-hidden">Rating</span>
-        </div>
-      </div>
+      <OfferRating
+        block='reviews'
+        rating={comment.rating}
+      />
       <p className="reviews__text">
         { comment.comment }
       </p>
-      <time className="reviews__time" dateTime={convertDateToString(comment.date, 'YYYYMMDD')}>
+      <time data-testid="timeElement" className="reviews__time" dateTime={convertDateToString(comment.date, 'YYYYMMDD')}>
         { convertDateToString(comment.date, 'MMMMYYYY') }
       </time>
     </div>

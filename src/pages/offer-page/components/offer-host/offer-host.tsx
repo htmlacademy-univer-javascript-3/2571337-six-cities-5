@@ -10,6 +10,7 @@ export const OfferHost = ({ host, description }: OfferHostProps) => (
     <h2 className="offer__host-title">Meet the host</h2>
     <div className="offer__host-user user">
       <div
+        data-testid="userAvatarComponent"
         className={cn('offer__avatar-wrapper user__avatar-wrapper', {['offer__avatar-wrapper--pro']: host.isPro})}
       >
         <img

@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { AppRoute } from '../../constants/routes';
 import { AuthStatus } from '../../constants/user';
 import { useAppSelector } from '../../store/hooks';
+import { selectAuthStatus } from '../../store/user-process/selectors';
 
 
 type PrivateRouteProps = {
@@ -14,6 +15,6 @@ export function PrivateRoute({
   needAuthStatus = AuthStatus.Authorized,
   to = AppRoute.Login
 }: PrivateRouteProps){
-  const userStatus = useAppSelector((state) => state.user.authorizationStatus);
-  return userStatus === needAuthStatus ? children : <Navigate to={to}/>;
+  const authStatus = useAppSelector(selectAuthStatus);
+  return authStatus === needAuthStatus ? children : <Navigate to={to}/>;
 }
