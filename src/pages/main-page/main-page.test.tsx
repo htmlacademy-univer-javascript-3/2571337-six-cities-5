@@ -6,7 +6,7 @@ import { MainPage } from './main-page';
 import { AuthStatus } from '../../constants/user';
 import { makeFakeUser } from '../../mocks/users';
 
-describe('Component: MainPage', () => {
+describe('Component: MainPage.', () => {
   let initialState:Partial<TState>;
   const fakeCommonOffer = makeFakeCommonOffer();
 
