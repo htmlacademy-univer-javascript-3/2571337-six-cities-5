@@ -1,11 +1,15 @@
 import axios, { AxiosError } from 'axios';
 import { API_TIMEOUT, BASE_SERVER_URL } from '../constants/api';
 import { getToken } from './token';
-import { processErrorHandler } from './process-error-handle';
+import { showErrorMessage } from '../helpers/show-error-message';
 
 type DetailMessageType = {
   errorType: string;
   message: string;
+}
+
+enum ErrorCode {
+  ECONNABORTED = 'ECONNABORTED'
 }
 
 export const createApi = () => {
@@ -22,12 +26,14 @@ export const createApi = () => {
   });
 
   api.interceptors.response.use((response) => response, (error: AxiosError<DetailMessageType>) => {
-    if (error.response) {
-      const detailMessage = error.response.data;
-      processErrorHandler(detailMessage.message);
+    if (error.code === ErrorCode.ECONNABORTED) {
+      showErrorMessage('Сервер недоступен');
     }
-
+    if (error.response) {
+      throw error.response.data.message;
+    }
     throw error;
+
   });
 
   return api;

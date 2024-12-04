@@ -26,5 +26,8 @@ const dateTimesLocaleOptions: Record<FormatType, DateTimeLocalesOptions> = {
 export function convertDateToString(dateString: string, format: FormatType):string {
   const date = new Date(dateString);
   const { locale, options } = dateTimesLocaleOptions[format];
+  if (Number.isNaN(date.getDate())) {
+    return new Date().toLocaleDateString(locale, options);
+  }
   return date.toLocaleDateString(locale, options);
 }

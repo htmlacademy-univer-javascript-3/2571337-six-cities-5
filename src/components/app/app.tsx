@@ -7,63 +7,63 @@ import { OfferPage } from '../../pages/offer-page';
 import { NotFoundPage } from '../../pages/not-found-page';
 import { PrivateRoute } from '../private-route/private-route';
 import { AppRoute } from '../../constants/routes';
-import { CommonOffer } from '../../types/offer.types';
-import { HistoryRouter } from '../history-route/history-route';
-import { browserHistory } from '../../browser-history';
+
 import { AuthStatus } from '../../constants/user';
 import { MainLayout } from '../../layouts/main-layout';
+import { useAppSelector } from '../../store/hooks';
+import { selectAuthStatus } from '../../store/user-process/selectors';
+import { Spinner } from '../spinner';
 
-interface AppProps {
-    offers: CommonOffer[];
-}
+export function App():JSX.Element {
+  const authStatus = useAppSelector(selectAuthStatus);
 
-export function App({ offers }: AppProps):JSX.Element {
+  if (authStatus === AuthStatus.Unknown) {
+    return <Spinner />;
+  }
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-          element={
-            <MainLayout className="page--gray page--main">
-              <MainPage />
-            </MainLayout>
-          }
-        />
-        <Route
-          path={AppRoute.Login}
-          element={
-            <PrivateRoute needAuthStatus={AuthStatus.Unauthorized} to={AppRoute.Main}>
-              <LoginPage/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute>
-              <MainLayout>
-                <FavoritesPage offers={offers}/>
-              </MainLayout>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Offer}
-          element={
+    <Routes>
+      <Route
+        path={AppRoute.Main}
+        element={
+          <MainLayout className="page--gray page--main">
+            <MainPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path={AppRoute.Login}
+        element={
+          <PrivateRoute needAuthStatus={AuthStatus.Unauthorized} to={AppRoute.Main}>
+            <LoginPage/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute>
             <MainLayout>
-              <OfferPage/>
+              <FavoritesPage />
             </MainLayout>
-          }
-        />
-        <Route
-          path={AppRoute.NotFound}
-          element={<NotFoundPage />}
-        />
-        <Route
-          path='*'
-          element={<Navigate to={AppRoute.NotFound}/>}
-        />
-      </Routes>
-    </HistoryRouter>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Offer}
+        element={
+          <MainLayout>
+            <OfferPage/>
+          </MainLayout>
+        }
+      />
+      <Route
+        path={AppRoute.NotFound}
+        element={<NotFoundPage />}
+      />
+      <Route
+        path='*'
+        element={<Navigate to={AppRoute.NotFound}/>}
+      />
+    </Routes>
   );
 }

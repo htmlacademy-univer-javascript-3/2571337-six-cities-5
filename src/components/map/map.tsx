@@ -50,7 +50,7 @@ const Map = ({ city, offers, activeOffer }: MapProps) => {
     }
   }, [map, offers, activeOffer]);
   return (
-    <div ref={mapRef} style={{height: '100%'}}/>
+    <div data-testid="mapElement" ref={mapRef} style={{height: '100%'}}/>
   );
 };
 

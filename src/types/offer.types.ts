@@ -1,3 +1,4 @@
+import { FavoriteOfferStatus } from '../constants/offers';
 import { TCity } from './city.types';
 import { TLocation } from './location.types';
 import { TUser } from './user.types';
@@ -31,4 +32,10 @@ export type Offer = {
     host: TUser;
     images: string[];
     maxAdults: number;
+    previewImage?: string;
 } & Omit<CommonOffer, 'previewImage'>;
+
+export type SetFavoriteOfferStatusParams = {
+    status: FavoriteOfferStatus;
+    offerId: CommonOffer['id'];
+}

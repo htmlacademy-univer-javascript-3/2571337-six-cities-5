@@ -1,1 +1,1 @@
-export * from './offers-list';
+export { MemoOffersList as OffersList } from './offers-list';

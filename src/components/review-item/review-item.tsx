@@ -28,7 +28,7 @@ export const ReviewItem = ({ comment }: ReviewItemProps) => (
       <p className="reviews__text">
         { comment.comment }
       </p>
-      <time className="reviews__time" dateTime={convertDateToString(comment.date, 'YYYYMMDD')}>
+      <time data-testid="timeElement" className="reviews__time" dateTime={convertDateToString(comment.date, 'YYYYMMDD')}>
         { convertDateToString(comment.date, 'MMMMYYYY') }
       </time>
     </div>

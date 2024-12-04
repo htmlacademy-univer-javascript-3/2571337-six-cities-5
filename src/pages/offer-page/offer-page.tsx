@@ -1,4 +1,4 @@
-import { JSX, useEffect, useMemo } from 'react';
+import { JSX, useCallback, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { ReviewForm } from '../../components/review-form';
 import { ReviewsList } from '../../components/reviews-list';
@@ -6,13 +6,13 @@ import { Map } from '../../components/map';
 import { OffersList } from '../../components/offers-list';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchNearbyOffers, fetchOffer } from '../../store/offers-process/api-actions';
+import { fetchNearbyOffers, fetchOffer, setFavoriteOfferStatus } from '../../store/offers-process/api-actions';
 import { fetchComments } from '../../store/comments-process/api-actions';
 import { Spinner } from '../../components/spinner';
 import { OfferGallery } from './components/offer-gallery';
 import { OfferGoods } from './components/offer-goods';
 import { OfferHost } from './components/offer-host';
-import { stringWithPluralRule } from '../../utils/string-with-plural-rule';
+import { makeStringWithPluralRule } from '../../utils/make-string-with-plural-rule';
 import { AuthStatus } from '../../constants/user';
 import { clearOffer } from '../../store/offers-process/offers-reducer';
 import { OfferPremiumMark } from '../../components/offer-premium-mark';
@@ -21,21 +21,41 @@ import { OfferRating } from '../../components/offer-rating';
 import { selectAuthStatus } from '../../store/user-process/selectors';
 import { selectNearbyOffers, selectOffer } from '../../store/offers-process/selectors';
 import { selectFilteredComments } from '../../store/comments-process/selectors';
+import { FavoriteOfferStatus, MAX_NEAR_OFFERS } from '../../constants/offers';
+import { redirectToRoute } from '../../store/action';
+import { AppRoute } from '../../constants/routes';
 
 export function OfferPage():JSX.Element {
   const {offerId} = useParams();
 
   const dispatch = useAppDispatch();
-  const { authStatus } = useAppSelector(selectAuthStatus);
-  const { nearbyOffers } = useAppSelector(selectNearbyOffers);
-  const { offer } = useAppSelector(selectOffer);
+  const authStatus = useAppSelector(selectAuthStatus);
+  const nearbyOffers = useAppSelector(selectNearbyOffers);
+  const offer = useAppSelector(selectOffer);
   const { commentsLength, filteredComments } = useAppSelector(selectFilteredComments);
 
-  const nearbyOffersOnMap = useMemo(
-    () => offer
-      ? [...nearbyOffers.slice(0, 3), offer]
-      : []
-    , [nearbyOffers, offer]);
+  const {nearbyOffersList, nearbyOffersOnMap} = useMemo(
+    () => {
+      const slicedNearbyOffers = nearbyOffers.slice(0, MAX_NEAR_OFFERS);
+      return {
+        nearbyOffersList: slicedNearbyOffers,
+        nearbyOffersOnMap: offer ? [...slicedNearbyOffers, offer] : []
+      };
+    }, [nearbyOffers, offer]);
+
+  const onClickToBookmark = useCallback(() => {
+    if (authStatus !== AuthStatus.Authorized) {
+      dispatch(redirectToRoute(AppRoute.Login));
+    } else {
+      if (offerId && offer) {
+        dispatch(setFavoriteOfferStatus({
+          offerId,
+          status: offer?.isFavorite ? FavoriteOfferStatus.NotFavorite : FavoriteOfferStatus.Favorite
+        }));
+      }
+    }
+
+  }, [offerId, offer, dispatch, authStatus]);
 
   useEffect(() => () => {
     dispatch(clearOffer());
@@ -68,6 +88,7 @@ export function OfferPage():JSX.Element {
                 block="offer__bookmark"
                 isFavorite={offer.isFavorite}
                 size="big"
+                onClick={onClickToBookmark}
               />
             </div>
             <OfferRating
@@ -78,10 +99,10 @@ export function OfferPage():JSX.Element {
             <ul className="offer__features">
               <li className="offer__feature offer__feature--entire">{offer.type}</li>
               <li className="offer__feature offer__feature--bedrooms">
-                {stringWithPluralRule('Bedroom', offer.bedrooms)}
+                {makeStringWithPluralRule('Bedroom', offer.bedrooms)}
               </li>
               <li className="offer__feature offer__feature--adults">
-              Max {stringWithPluralRule('adult', offer.maxAdults)}
+              Max {makeStringWithPluralRule('adult', offer.maxAdults)}
               </li>
             </ul>
             <div className="offer__price">
@@ -120,7 +141,7 @@ export function OfferPage():JSX.Element {
           <OffersList
             block='near-places'
             className='near-places__list'
-            offers={nearbyOffers}
+            offers={nearbyOffersList}
           />
         </section>
       </div>

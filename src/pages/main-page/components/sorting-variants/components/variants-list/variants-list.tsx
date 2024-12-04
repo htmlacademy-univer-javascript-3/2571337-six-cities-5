@@ -11,7 +11,7 @@ type VariantsListProps = {
 }
 export const VariantsList = ({ expanded, toggleExpanded }: VariantsListProps) => {
   const dispatch = useAppDispatch();
-  const {sortingVariant} = useAppSelector(selectSortingVariant);
+  const sortingVariant = useAppSelector(selectSortingVariant);
 
   const onChangeSortingVariant = (newSortingVariant: SortingVariant) => {
     dispatch(changeSortingVariant(newSortingVariant));
@@ -20,6 +20,7 @@ export const VariantsList = ({ expanded, toggleExpanded }: VariantsListProps) =>
 
   return (
     <ul
+      data-testid="placesOptionsContainer"
       className={cn('places__options places__options--custom', {'places__options--opened': expanded})}
     >
       {

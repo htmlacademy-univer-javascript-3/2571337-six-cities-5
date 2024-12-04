@@ -2,8 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AddCommentParams, TComment } from '../../types/comment.types';
 import { TAppDispatch, TState } from '../../types/state.types';
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { redirectToRoute } from '../action';
-import { AppRoute } from '../../constants/routes';
 import { APIRoute } from '../../constants/api';
 
 export const fetchComments = createAsyncThunk<TComment[], string,
@@ -14,18 +12,13 @@ export const fetchComments = createAsyncThunk<TComment[], string,
 }
 >(
   'comments/fetchComments',
-  async (offerId, { dispatch, extra: api }) => {
-    try {
-      const {data: comments} = await api.get<TComment[]>(`${APIRoute.Comments}${offerId}/`);
-      return comments;
-    } catch {
-      dispatch(redirectToRoute(AppRoute.NotFound));
-      return [];
-    }
+  async (offerId, { extra: api }) => {
+    const {data: comments} = await api.get<TComment[]>(`${APIRoute.Comments}${offerId}/`);
+    return comments;
   }
 );
 
-export const addCommentFx = createAsyncThunk<TComment | null, AddCommentParams,
+export const addCommentFx = createAsyncThunk<TComment, AddCommentParams,
 {
     state: TState;
     dispatch: TAppDispatch;
@@ -33,13 +26,8 @@ export const addCommentFx = createAsyncThunk<TComment | null, AddCommentParams,
 }
 >(
   'comments/addComment',
-  async ({ commentData, offerId }, { dispatch, extra: api }) => {
-    try {
-      const {data: comment} = await api.post<AddCommentParams['commentData'], AxiosResponse<TComment>>(`${APIRoute.Comments}${offerId}`, commentData);
-      return comment;
-    } catch {
-      dispatch(redirectToRoute(AppRoute.NotFound));
-      return null;
-    }
+  async ({ commentData, offerId }, { extra: api }) => {
+    const {data: comment} = await api.post<AddCommentParams['commentData'], AxiosResponse<TComment>>(`${APIRoute.Comments}${offerId}`, commentData);
+    return comment;
   }
 );

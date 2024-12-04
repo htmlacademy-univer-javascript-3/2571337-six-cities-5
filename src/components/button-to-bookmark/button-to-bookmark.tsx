@@ -3,7 +3,7 @@ import cn from 'classnames';
 const SvgSize = {
   small: {
     width: 18,
-    heigth: 19
+    height: 19
   },
   big: {
     width: 31,
@@ -15,19 +15,25 @@ type ButtonToBookmarkProps = {
     block: string;
     size: keyof typeof SvgSize;
     isFavorite: boolean;
+    onClick: () => void;
 }
 
-export const ButtonToBookmark = ({ block, size, isFavorite }: ButtonToBookmarkProps) => (
-  <button
-    className={cn('button', `${block}-button`, {[`${block}-button--active`]: isFavorite})}
-    type="button"
-  >
-    <svg
-      className={cn(`${block}-icon`)}
-      {...SvgSize[size]}
+export const ButtonToBookmark = ({ block, size, isFavorite, onClick }: ButtonToBookmarkProps) => {
+  const handleButtonToBookmarkClick = () => onClick();
+  return (
+    <button
+      className={cn('button', `${block}-button`, {[`${block}-button--active`]: isFavorite})}
+      type="button"
+      onClick={handleButtonToBookmarkClick}
+      data-testid="buttonToBookmark"
     >
-      <use xlinkHref="#icon-bookmark" />
-    </svg>
-    <span className="visually-hidden">To bookmarks</span>
-  </button>
-);
+      <svg
+        className={cn(`${block}-icon`)}
+        {...SvgSize[size]}
+      >
+        <use xlinkHref="#icon-bookmark" />
+      </svg>
+      <span className="visually-hidden">To bookmarks</span>
+    </button>
+  );
+};
