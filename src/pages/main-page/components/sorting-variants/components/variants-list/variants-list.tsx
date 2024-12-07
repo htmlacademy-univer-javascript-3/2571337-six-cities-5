@@ -7,15 +7,15 @@ import { changeSortingVariant } from '../../../../../../store/offers-process/off
 
 type VariantsListProps = {
     expanded: boolean;
-    toggleExpanded: () => void;
+    onToggleExpanded: () => void;
 }
-export const VariantsList = ({ expanded, toggleExpanded }: VariantsListProps) => {
+export const VariantsList = ({ expanded, onToggleExpanded }: VariantsListProps) => {
   const dispatch = useAppDispatch();
   const sortingVariant = useAppSelector(selectSortingVariant);
 
   const onChangeSortingVariant = (newSortingVariant: SortingVariant) => {
     dispatch(changeSortingVariant(newSortingVariant));
-    toggleExpanded();
+    onToggleExpanded();
   };
 
   return (
