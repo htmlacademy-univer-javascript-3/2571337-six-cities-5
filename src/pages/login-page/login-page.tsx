@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../store/hooks';
 import { AuthCredentials } from '../../types/user.types';
 import { login } from '../../store/user-process/api-actions';
 import { LocationItem } from './components/location-item';
+import { AppRoute } from '../../constants/routes';
 
 export function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ export function LoginPage(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link className="header__logo-link" to="/">
+              <Link className="header__logo-link" to={AppRoute.Main}>
                 <img
                   className="header__logo"
                   src="img/logo.svg"

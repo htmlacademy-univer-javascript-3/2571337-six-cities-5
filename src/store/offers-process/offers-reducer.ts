@@ -66,6 +66,7 @@ const offersSlice = createSlice({
         state.offers = state.offers.map(
           (offerItem) => offerItem.id === offer.id ? ({...offerItem, isFavorite: offer.isFavorite}) : offerItem
         );
+        state.nearbyOffers = state.nearbyOffers.map((offerItem) => offerItem.id === offer.id ? ({...offerItem, isFavorite: offer.isFavorite}) : offerItem);
       });
   }
 });

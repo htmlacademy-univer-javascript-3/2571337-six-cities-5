@@ -22,7 +22,7 @@ const SortingVariants = () => {
       </span>
       <VariantsList
         expanded={expanded}
-        toggleExpanded={onToggleExpanded}
+        onToggleExpanded={onToggleExpanded}
       />
     </form>
   );

@@ -14,10 +14,10 @@ describe('Component: VariantsList', () => {
   const fakeCommonOffer = makeFakeCommonOffer();
   const variantsListProps: {
         expanded: boolean;
-        toggleExpanded: () => void;
+        onToggleExpanded: () => void;
     } = {
       expanded: false,
-      toggleExpanded: mockToggleExpanded
+      onToggleExpanded: mockToggleExpanded
     };
 
   beforeEach(() => {
@@ -61,7 +61,7 @@ describe('Component: VariantsList', () => {
     const variantItemElementTestId = 'variantItemElement';
     const componentWithHistory = withHistory(<VariantsList {...variantsListProps} expanded />);
     const { componentWithStore: prepandedComponent, mockStore } = withStore(componentWithHistory, initialState);
-    vi.spyOn(variantsListProps, 'toggleExpanded');
+    vi.spyOn(variantsListProps, 'onToggleExpanded');
 
     render(prepandedComponent);
     await userEvent.click(screen.getAllByTestId(variantItemElementTestId)[0]);

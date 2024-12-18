@@ -1,4 +1,4 @@
-import { image } from 'faker';
+import { datatype, image } from 'faker';
 
 const ImageSize = {
   large: {
@@ -16,8 +16,8 @@ const CommentAvatarSize = {
   height: 54
 } as const;
 
-export const makeFakePreviewImageWithSize = (size: keyof typeof ImageSize = 'large') => image.imageUrl(ImageSize[size].width, ImageSize[size].height);
+export const makeFakePreviewImageWithSize = (size: keyof typeof ImageSize = 'large') => image.imageUrl(ImageSize[size].width, ImageSize[size].height) + String(datatype.uuid());
 
 export const makeFakeCommentAvatar = () => image.imageUrl(CommentAvatarSize.width, CommentAvatarSize.height);
 
-export const makeFakeImageWithoutSizes = () => image.imageUrl();
+export const makeFakeImageWithoutSizes = () => image.imageUrl() + String(datatype.uuid());
