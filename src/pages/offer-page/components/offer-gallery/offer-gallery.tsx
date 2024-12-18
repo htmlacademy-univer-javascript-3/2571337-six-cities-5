@@ -8,7 +8,7 @@ export const OfferGallery = ({ images }: OfferGalleryProps) => (
     <div data-testid="galleryContainer" className="offer__gallery">
       {
         images.slice(0, OFFER_IMAGES_MAX_COUNT).map((imageSrc) => (
-          <div className="offer__image-wrapper" key={imageSrc}>
+          <div className="offer__image-wrapper" key={`${imageSrc}_${OFFER_IMAGES_MAX_COUNT}`}>
             <img
               className="offer__image"
               src={imageSrc}

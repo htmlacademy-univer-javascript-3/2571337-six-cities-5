@@ -46,5 +46,5 @@ export const makeFakeOffer = ():Offer => ({
   goods: datatype.array(7).map((el) => String(el)),
   maxAdults: datatype.number({ min: 0 }),
   host: makeFakeUser(),
-  images: datatype.array(7).map(() => String(makeFakeImageWithoutSizes()))
+  images: datatype.array(1).map(() => String(makeFakeImageWithoutSizes()))
 });
